@@ -1,0 +1,31 @@
+<h1> Listado de perros </h1>
+
+<%= link_to 'Nuevo perro', new_pet_path %>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Número de chip</th>
+    <th>Fechas de nacimiento</th>
+    <th>Color de pelo</th>
+    <th>Color de ojos</th>
+    <th>Comentarios</th>
+    <th colspan="3"></th>
+  </tr>
+
+  <% @pet.each do |pet| %>
+    <tr>
+      <th><%= pet.name %></th>
+      <th><%= pet.num_chip %></th>
+      <th><%= pet.born_date %></th>
+      <th><%= pet.color_hair %></th>
+      <th><%= pet.color_eyes %></th>
+      <th><%= pet.comment %></th>
+      <td><%= link_to 'Mostrar', pet_path(pet) %></td>
+      <td><%= link_to 'Editar', edit_pet_path(pet) %></td>
+      <td><%= link_to 'Borrar', pet_path(pet),
+              method: :delete,
+              data: { confirm: '¿Estás seguro?' } %></td>
+    </tr>
+  <% end %>
+</table>

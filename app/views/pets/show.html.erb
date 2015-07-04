@@ -1,0 +1,37 @@
+<p>
+  <strong>Nombre:</strong>
+  <%= @pet.name %>
+</p>
+
+<p>
+  <strong>Número de chip:</strong>
+  <%= @pet.num_chip %>
+</p>
+
+<p>
+  <strong>Fecha de nacimiento:</strong>
+  <%= @pet.born_date %>
+</p>
+
+<!-- <p>
+  <strong>Raza:</strong>
+  <%#= @pet.race %>
+</p> -->
+
+<p>
+  <strong>Color del pelo:</strong>
+  <%= @pet.color_hair %>
+</p>
+
+<p>
+  <strong>Color de ojos:</strong>
+  <%= @pet.color_eyes %>
+</p>
+
+<p>
+  <strong>Comentarios:</strong>
+  <%= @pet.comment %>
+</p>
+
+<%= link_to 'Editar', edit_pet_path(@pet) %> 
+<%= link_to 'Volver', pets_path %>

@@ -1,0 +1,32 @@
+# == Schema Information
+#
+# Table name: pets
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  num_chip   :integer
+#  born_date  :datetime
+#  color_hair :string
+#  color_eyes :string
+#  comment    :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  num_chip: 1
+  born_date: 2015-07-04 17:58:08
+  color_hair: MyString
+  color_eyes: MyString
+  comment: MyText
+
+two:
+  name: MyString
+  num_chip: 1
+  born_date: 2015-07-04 17:58:08
+  color_hair: MyString
+  color_eyes: MyString
+  comment: MyText
