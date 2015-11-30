@@ -1,0 +1,52 @@
+<div class="authform">
+  <h3><%= t('devise.registrations.edit.edit.') %> <%= User.model_name.human %></h3>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, :autofocus => true, :placeholder => t('devise.registrations.name'), class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :autofocus => true, :placeholder => t('devise.registrations.last_name'), class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone %>
+      <%= f.phone_field :phone, :autofocus => true, :placeholder => t('devise.registrations.phone'), class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, :placeholder => t('devise.registrations.email'), class: 'form-control' %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+    </div>
+    <fieldset>
+      <p><%= t('devise.registrations.edit.blank_field') %></p>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, :autocomplete => 'off', :placeholder => t('devise.registrations.password'), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, :placeholder => t('devise.registrations.repeat_password'), class: 'form-control' %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <p><%= t('devise.registrations.edit.changes') %></p>
+      <div class="form-group">
+        <%= f.label :current_password %>
+        <%= f.password_field :current_password, :placeholder => t('devise.registrations.actual_password'), class: 'form-control' %>
+      </div>
+    </fieldset>
+    <%= link_to t('devise.registrations.edit.cancel'), :back , :class => 'button left' %>
+    <%= f.submit t('devise.registrations.edit.update'), :class => 'button right' %>
+  <% end %>
+</div>
+
+<% if current_user.admin? %>
+  <div class="authform">
+  <h3><%= t('devise.registrations.edit.cancel_account') %></h3>
+  <%= button_to t('devise.registrations.edit.cancel_button'), registration_path(resource_name), :data => { :confirm => t('devise.registrations.name') }, :method => :delete, :class => 'button right' %>
+  </div>
+<% end %>

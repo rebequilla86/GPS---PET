@@ -1,0 +1,10 @@
+es:
+  layouts:
+    navigation:
+      home: Inicio
+    navigation_links: 
+      edit_account: Editar cuenta
+      sign_in: Iniciar sesión
+      sign_out: Salir
+      sign_up: Dar de alta
+      users: Usuarios

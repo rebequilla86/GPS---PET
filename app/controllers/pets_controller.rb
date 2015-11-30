@@ -2,18 +2,22 @@ class PetsController < ApplicationController
 
   def index
   	@pet = Pet.all
+  	authorize @pet
   end
 
   def show
     @pet = Pet.find(params[:id])
+    authorize @pet
   end
 
   def new
   	@pet = Pet.new
+  	authorize @pet
   end
 
   def edit
     @pet = Pet.find(params[:id])
+    authorize @pet
   end
 
   def create
@@ -28,6 +32,7 @@ class PetsController < ApplicationController
 
   def update
     @pet = Pet.find(params[:id])
+    authorize @pet
  
     if @pet.update(pet_params)
       redirect_to @pet

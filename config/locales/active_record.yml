@@ -1,0 +1,22 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        change_role: Cambiar rol
+        current_password: Contraseña actual
+        delete_user: Borrar usuario
+        email: Email
+        name: Nombre
+        last_name: Apellidos
+        password: Contraseña
+        password_confirmation: Confirmación contraseña
+        phone: Teléfono
+        sure: ¿Estás seguro?
+    models:
+      pet: 
+        one: Mascota
+        other: Mascotas
+      user: 
+        one: Usuario
+        other: Usuarios
+    
