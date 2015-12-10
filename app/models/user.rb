@@ -22,11 +22,11 @@
 #
 
 class User < ActiveRecord::Base
-  enum role: [:admin, :user, :carer]
+  enum role: [:admin, :owner, :carer]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :owner
   end
 
   # Include default devise modules. Others available are:
@@ -34,7 +34,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :pets, inverse_of: :user
+  # associations
+  has_many :pets, inverse_of: :user, dependent: :destroy
 
   #validations
   validates :name, :last_name, :phone, :email, presence: true

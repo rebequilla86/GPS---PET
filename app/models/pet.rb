@@ -11,8 +11,15 @@
 #  comment    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer
 #
 
 class Pet < ActiveRecord::Base
-  validates :name, :num_chip, :born_date, :color_hair, :color_eyes, :comment, presence: true
+
+  # associations
+  belongs_to :user, inverse_of: :pets
+
+  # validations
+  #validates :name, :num_chip, :born_date, :color_hair, :color_eyes, :comment, presence: true
+  validates :name, :num_chip, :born_date, presence: true
 end
