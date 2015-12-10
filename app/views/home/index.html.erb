@@ -1,2 +1,7 @@
 <h3><%= t('home.welcome') %></h3>
-<p><%= link_to t('activerecord.models.user', :count => User.all), users_path %> <%= User.count %> <%= t('home.registered', :count => User.all) %></p>
+<% if current_user.admin? %>
+	<p><%= link_to t('activerecord.models.user', :count => User.all), users_path %> <%= User.count %> <%= t('home.registered', :count => User.all) %></p>
+<% else %>
+	<% @pets = Pet.where(user_id: current_user.id) %>
+  <%= render template: "pets/index", collection: @pets %>
+<% end %>

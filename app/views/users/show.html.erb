@@ -3,3 +3,13 @@
 <p><%= t('activerecord.attributes.user.last_name') %>: <%= @user.name if @user.last_name %></p>
 <p><%= t('activerecord.attributes.user.email') %>: <%= @user.email if @user.email %></p>
 <p><%= t('activerecord.attributes.user.phone') %>: <%= @user.phone if @user.phone %></p>
+
+<% if @user.role == "carer" || @user.role == "owner" %>
+	<p><%= t('activerecord.attributes.user.dogs') %>: 
+		<% @pets.each do |pet| %>
+	    <li>
+	      <%= pet.name %>
+	    </li>
+	  <% end %>
+	</p>
+<% end %>

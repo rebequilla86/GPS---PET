@@ -1,11 +1,28 @@
 es:
   activerecord:
     attributes:
+      pet:
+        editing: Editando a
+        back: Volver
+        born_date: Fecha de nacimiento
+        confirmation: Perro creado satisfactoriamente
+        comment: Comentarios
+        delete: Borrar
+        edit: Editar
+        list: Listado de perros
+        name: Nombre
+        new: Añadir a
+        new_pet: Nuevo perro
+        num_chip: Número de chip
+        show: Mostrar
+        send: Enviar
+        sure: ¿Estás seguro?
       user:
         change_role: Cambiar rol
         current_password: Contraseña actual
         delete_user: Borrar usuario
         deleted_user: Usuario borrado
+        dogs: Perros
         email: Email
         name: Nombre
         last_name: Apellidos

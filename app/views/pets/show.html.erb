@@ -1,15 +1,15 @@
 <p>
-  <strong>Nombre:</strong>
+  <strong><%= t('activerecord.attributes.pet.name') %>:</strong>
   <%= @pet.name %>
 </p>
 
 <p>
-  <strong>Número de chip:</strong>
+  <strong><%= t('activerecord.attributes.pet.num_chip') %>:</strong>
   <%= @pet.num_chip %>
 </p>
 
 <p>
-  <strong>Fecha de nacimiento:</strong>
+  <strong><%= t('activerecord.attributes.pet.born_date') %>:</strong>
   <%= @pet.born_date %>
 </p>
 
@@ -18,20 +18,20 @@
   <%#= @pet.race %>
 </p> -->
 
-<p>
+<!--<p>
   <strong>Color del pelo:</strong>
-  <%= @pet.color_hair %>
-</p>
+  <%#= @pet.color_hair %>
+</p>-->
 
-<p>
+<!-- <p>
   <strong>Color de ojos:</strong>
-  <%= @pet.color_eyes %>
-</p>
+  <%#= @pet.color_eyes %>
+</p> -->
 
 <p>
-  <strong>Comentarios:</strong>
+  <strong><%= t('activerecord.attributes.pet.comments') %>:</strong>
   <%= @pet.comment %>
 </p>
 
-<%= link_to 'Editar', edit_pet_path(@pet) %> 
-<%= link_to 'Volver', pets_path %>
+<%= link_to (t('activerecord.attributes.pet.edit')), edit_pet_path(@pet) %> 
+<%= link_to (t('activerecord.attributes.pet.back')), root_path %>

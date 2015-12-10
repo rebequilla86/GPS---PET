@@ -2,28 +2,26 @@ class PetsController < ApplicationController
 
   def index
   	@pet = Pet.all
-  	authorize @pet
   end
 
   def show
     @pet = Pet.find(params[:id])
-    authorize @pet
   end
 
   def new
   	@pet = Pet.new
-  	authorize @pet
   end
 
   def edit
     @pet = Pet.find(params[:id])
-    authorize @pet
   end
 
   def create
     @pet = Pet.new(pet_params)
-    
+    @pet.user_id = current_user.id if current_user
+     
     if @pet.save
+      flash[:success] = t('activerecord.attributes.pet.confirmation')
       redirect_to @pet
     else
       render 'new'
@@ -32,7 +30,6 @@ class PetsController < ApplicationController
 
   def update
     @pet = Pet.find(params[:id])
-    authorize @pet
  
     if @pet.update(pet_params)
       redirect_to @pet
@@ -50,7 +47,7 @@ class PetsController < ApplicationController
 
   private
     def pet_params
-      params.require(:pet).permit(:name, :num_chip, :born_date, :color_hair, :color_eyes, :comment)#:race,
+      params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment)#:color_hair, :color_eyes, :comment, :race)
     end
 
 end
