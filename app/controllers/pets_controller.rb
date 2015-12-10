@@ -42,7 +42,7 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:id])
     @pet.destroy
  
-    redirect_to pets_path
+    redirect_to root_path
   end
 
   private
