@@ -38,7 +38,7 @@ es:
       no_token: "No puedes acceder a esta página sin venir de un email de recuperación de contraseña."
       send_instructions: "Recibirás un email con instrucciones de como inicializar la contraseña en pocos minutos."
       send_paranoid_instructions: "Si tu email existe en el sistema, recibirás instrucciones para recuperar tu contraseña en él"
-      signed_up: Dar de alta
+      signed_up: Regístrate
       updated: "Se ha cambiado la contraseña correctamente. Ahora estas conectado"
       updated_not_active: "Se ha cambiado la contraseña correctamente."
     registrations:
@@ -56,7 +56,7 @@ es:
       name: Introduzca su nombre
       new:
         cancel: Cancelar
-        sign_up: Dar de alta
+        sign_up: Regístrate
       password: Introduzca su contraseña
       phone: Introduzca su teléfono
       repeat_password: "Repita la contraseña"
@@ -73,7 +73,7 @@ es:
       init_session: Iniciar sesión
       remember_me: Recuérdame
       sign_in: Entrar
-      sign_up: Dar de alta
+      sign_up: Regístrate
       signed_in: ""
       signed_out: ""
     unlocks:

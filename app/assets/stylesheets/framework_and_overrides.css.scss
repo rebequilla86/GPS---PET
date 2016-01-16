@@ -11,6 +11,10 @@ img {
 .navbar-brand {
   font-size: inherit;
   }
+.navbar-nav {
+  float: right;
+  margin: 0;
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -31,6 +35,7 @@ img {
   @extend .btn-primary;
   @extend .btn-lg;
   }
+
 // apply styles to HTML elements
 // to make views framework-neutral
 main {

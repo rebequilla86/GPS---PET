@@ -3,8 +3,8 @@ es:
     navigation:
       home: Inicio
     navigation_links: 
-      edit_account: Editar cuenta
-      sign_in: Iniciar sesión
+      edit_account: Perfil
+      sign_in: Entra
       sign_out: Salir
-      sign_up: Dar de alta
+      sign_up: Regístrate
       users: Usuarios
