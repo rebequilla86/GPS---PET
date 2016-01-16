@@ -20,7 +20,7 @@ es:
       user:
         change_role: Cambiar rol
         current_password: Contraseña actual
-        delete_user: Borrar usuario
+        delete_user: Borrar 
         deleted_user: Usuario borrado
         dogs: Perros
         email: Email
