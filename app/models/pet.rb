@@ -4,14 +4,14 @@
 #
 #  id         :integer          not null, primary key
 #  name       :string
-#  num_chip   :integer
+#  num_chip   :string
 #  born_date  :datetime
-#  color_hair :string
-#  color_eyes :string
 #  comment    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
+#  is_walker  :string
+#  race       :string
 #
 
 class Pet < ActiveRecord::Base
@@ -20,6 +20,6 @@ class Pet < ActiveRecord::Base
   belongs_to :user, inverse_of: :pets
 
   # validations
-  #validates :name, :num_chip, :born_date, :color_hair, :color_eyes, :comment, presence: true
-  validates :name, :num_chip, :born_date, presence: true
+  validates :name, :born_date, presence: true
+  validates :num_chip, presence: true, length: { is: 15 }, uniqueness: true
 end
