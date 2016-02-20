@@ -44,6 +44,9 @@ es:
               invalid: inválida
             password: 
               too_short: demasiado pequeña
+            phone: 
+              blank: vacía
+              not_a_number: no es un número
     models:
       pet: 
         one: Mascota
