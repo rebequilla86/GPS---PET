@@ -11,7 +11,7 @@ class PetPolicy
   end
 
   def show?
-  	auth_default or user.carer?
+  	auth_default or user.walker?
   end
 
   def edit?

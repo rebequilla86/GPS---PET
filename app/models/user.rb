@@ -22,7 +22,7 @@
 #
 
 class User < ActiveRecord::Base
-  enum role: [:admin, :owner, :carer]
+  enum role: [:admin, :owner, :walker]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role
