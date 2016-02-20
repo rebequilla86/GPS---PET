@@ -28,14 +28,6 @@ ActiveRecord::Schema.define(version: 20151208131530) do
     t.integer  "user_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
