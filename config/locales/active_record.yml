@@ -9,6 +9,8 @@ es:
         comment: Comentarios
         delete: Borrar
         edit: Editar
+        error: No se puede registrar debido a
+        errors: errores
         list: Listado de perros
         name: Nombre
         new: Añadir a
@@ -37,6 +39,14 @@ es:
         updated_user: Usuario actualizado 
     errors:
       models:
+        pet:
+          attributes:
+            born_date:
+              blank: vacío
+            num_chip:
+              blank: vacío
+              taken: registrado
+              wrong_length: tamaño incorrecto
         user:
           attributes:
             current_password: 

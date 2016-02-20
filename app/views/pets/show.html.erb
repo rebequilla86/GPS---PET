@@ -1,29 +1,29 @@
-<div>
-  <p>
+<div class="authform">
+  <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.name') %>:</strong>
     <%= @pet.name %>
-  </p>
+  </div>
 
-  <p>
+  <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.num_chip') %>:</strong>
     <%= @pet.num_chip %>
-  </p>
+  </div>
 
-  <p>
+  <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.born_date') %>:</strong>
     <%= @pet.born_date %>
-  </p>
+  </div>
 
-  <p>
+  <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.race') %>:</strong>
-    <%#= @pet.race %>
-  </p> 
+    <%= @pet.race %>
+  </div> 
 
-  <p>
+  <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.comments') %>:</strong>
     <%= @pet.comment %>
-  </p>
+  </div>
 
-  <%= link_to (t('activerecord.attributes.pet.edit')), edit_pet_path(@pet) %> 
-  <%= link_to (t('activerecord.attributes.pet.back')), root_path %>
+  <%= link_to (t('activerecord.attributes.pet.edit')), edit_pet_path(@pet), :class => 'button left' %> 
+  <%= link_to (t('activerecord.attributes.pet.back')), root_path, :class => 'button right' %>
 </div>
