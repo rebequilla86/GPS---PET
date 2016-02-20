@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
       <%= f.label :phone %>
-      <%= f.text_field :phone, required: true, :autofocus => true, :placeholder => t('devise.registrations.phone'), class: 'form-control' %>
+      <%= f.text_field :phone, :autofocus => true, :placeholder => t('devise.registrations.phone'), class: 'form-control' %>
     </div>
     <div class="form-group">
       <%= f.label :email %>
@@ -27,6 +27,12 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, required: true, :placeholder => t('devise.registrations.repeat_password'), class: 'form-control' %>
     </div>
+
+    <div class="form-group">
+      <%= f.label :is_walker %>
+      <%= check_box_tag(:is_walker) %>
+    </div>
+
     <%= link_to t('devise.registrations.new.cancel'), :back , :class => 'button left' %>
     <%= f.submit t('devise.registrations.new.sign_up'), :class => 'button right' %>
   <% end %>

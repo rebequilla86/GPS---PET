@@ -32,6 +32,12 @@
         <%= f.password_field :password_confirmation, :placeholder => t('devise.registrations.repeat_password'), class: 'form-control' %>
       </div>
     </fieldset>
+
+    <div class="form-group">
+      <%= f.label :is_walker %>
+      <%= check_box_tag(:is_walker) %>
+    </div>
+
     <fieldset>
       <p><%= t('devise.registrations.edit.changes') %></p>
       <div class="form-group">
