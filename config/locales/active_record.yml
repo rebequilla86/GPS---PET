@@ -14,7 +14,9 @@ es:
         new: Añadir a
         new_pet: Nuevo perro
         num_chip: Número de chip
-        show: Mostrar
+        race: Raza
+        routes: Rutas
+        #show: Mostrar
         send: Enviar
         sure: ¿Estás seguro?
       user:
@@ -29,9 +31,19 @@ es:
         password: Contraseña
         password_confirmation: Confirmación contraseña
         phone: Teléfono
+        role: ¿Eres paseador?
         sure: ¿Estás seguro?
         unable_user: No tiene permiso para actualizar un usuario
         updated_user: Usuario actualizado 
+    errors:
+      models:
+        user:
+          attributes:
+            current_password: 
+              blank: vacía
+              invalid: inválida
+            password: 
+              too_short: demasiado pequeña
     models:
       pet: 
         one: Mascota

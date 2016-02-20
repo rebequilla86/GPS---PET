@@ -1,37 +1,29 @@
-<p>
-  <strong><%= t('activerecord.attributes.pet.name') %>:</strong>
-  <%= @pet.name %>
-</p>
+<div>
+  <p>
+    <strong><%= t('activerecord.attributes.pet.name') %>:</strong>
+    <%= @pet.name %>
+  </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.pet.num_chip') %>:</strong>
-  <%= @pet.num_chip %>
-</p>
+  <p>
+    <strong><%= t('activerecord.attributes.pet.num_chip') %>:</strong>
+    <%= @pet.num_chip %>
+  </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.pet.born_date') %>:</strong>
-  <%= @pet.born_date %>
-</p>
+  <p>
+    <strong><%= t('activerecord.attributes.pet.born_date') %>:</strong>
+    <%= @pet.born_date %>
+  </p>
 
-<!-- <p>
-  <strong>Raza:</strong>
-  <%#= @pet.race %>
-</p> -->
+  <p>
+    <strong><%= t('activerecord.attributes.pet.race') %>:</strong>
+    <%#= @pet.race %>
+  </p> 
 
-<!--<p>
-  <strong>Color del pelo:</strong>
-  <%#= @pet.color_hair %>
-</p>-->
+  <p>
+    <strong><%= t('activerecord.attributes.pet.comments') %>:</strong>
+    <%= @pet.comment %>
+  </p>
 
-<!-- <p>
-  <strong>Color de ojos:</strong>
-  <%#= @pet.color_eyes %>
-</p> -->
-
-<p>
-  <strong><%= t('activerecord.attributes.pet.comments') %>:</strong>
-  <%= @pet.comment %>
-</p>
-
-<%= link_to (t('activerecord.attributes.pet.edit')), edit_pet_path(@pet) %> 
-<%= link_to (t('activerecord.attributes.pet.back')), root_path %>
+  <%= link_to (t('activerecord.attributes.pet.edit')), edit_pet_path(@pet) %> 
+  <%= link_to (t('activerecord.attributes.pet.back')), root_path %>
+</div>

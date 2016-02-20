@@ -7,9 +7,8 @@
     <tr>
       <th><%= t 'activerecord.attributes.pet.name' %></th>
       <th><%= t 'activerecord.attributes.pet.num_chip' %></th>
+      <th><%= t 'activerecord.attributes.pet.race' %></th>
       <th><%= t 'activerecord.attributes.pet.born_date' %></th>
-     <!--  <th>Color de pelo</th>
-      <th>Color de ojos</th> -->
       <th><%= t 'activerecord.attributes.pet.comment' %></th>
       <th colspan="3"></th>
     </tr>
@@ -18,11 +17,11 @@
       <tr>
         <td><%= pet.name %></td>
         <td><%= pet.num_chip %></td>
+        <td><%#= pet.race %></td> 
         <td><%= pet.born_date.to_date %></td>
-        <!-- <td><%#= pet.color_hair %></td>
-        <td><%#= pet.color_eyes %></td> -->
         <td><%= pet.comment %></td>
-        <td><%= link_to (t 'activerecord.attributes.pet.show'), pet_path(pet) %></td>
+        <!-- Link to open the routes -->
+        <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_path(pet) %></td>
         <td><%= link_to (t 'activerecord.attributes.pet.edit'), edit_pet_path(pet) %></td>
         <td><%= link_to (t 'activerecord.attributes.pet.delete'), pet_path(pet),
                 method: :delete,
