@@ -19,6 +19,7 @@
 #  last_name              :string
 #  phone                  :integer
 #  role                   :integer
+#  is_walker              :string
 #
 
 class User < ActiveRecord::Base

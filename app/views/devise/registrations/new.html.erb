@@ -30,7 +30,7 @@
 
     <div class="form-group">
       <%= f.label :is_walker %>
-      <%= check_box_tag(:is_walker) %>
+      <%= f.check_box :is_walker, {checked: false} %>
     </div>
 
     <%= link_to t('devise.registrations.new.cancel'), :back , :class => 'button left' %>
