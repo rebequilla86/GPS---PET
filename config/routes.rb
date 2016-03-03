@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   devise_for :users
   get 'home/index'
 
-  resources :users, :pets
-
+  resources :pets
+  
+  resources :users do
+  	get 'walker', :on => :collection
+  end
 end

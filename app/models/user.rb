@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   enum role: [:admin, :owner, :walker]
   after_initialize :set_default_role, :if => :new_record?
 
+  scope :walker, -> { where(is_walker: '1') }
+
   def set_default_role
     self.role ||= :owner
   end

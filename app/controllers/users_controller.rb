@@ -30,6 +30,11 @@ class UsersController < ApplicationController
     redirect_to users_path, :notice => t('activerecord.attributes.user.deleted_user')
   end
 
+  def walker
+    @users = User.walker
+    authorize @users
+  end
+
   private
 
   def secure_params

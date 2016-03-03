@@ -37,6 +37,7 @@ es:
         sure: ¿Estás seguro?
         unable_user: No tiene permiso para actualizar un usuario
         updated_user: Usuario actualizado 
+        walkers: Paseadores
     errors:
       models:
         pet:
