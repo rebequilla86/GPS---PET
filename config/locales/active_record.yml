@@ -28,6 +28,7 @@ es:
         deleted_user: Usuario borrado
         dogs: Perros
         email: Email
+        experience: Experiencia
         name: Nombre
         last_name: Apellidos
         password: Contraseña

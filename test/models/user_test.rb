@@ -20,6 +20,8 @@
 #  phone                  :integer
 #  role                   :integer
 #  is_walker              :string
+#  dogs                   :string
+#  experience             :text
 #
 
 require 'test_helper'

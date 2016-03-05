@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def configure_devise_permitted_parameters
     registration_params = [:name, :last_name, :email, :phone, :password, :password_confirmation, :is_walker, 
-                           :role]
+                           :role, :dogs, :experience]
 
     if params[:action] == 'update'
       params[:user][:is_walker] == "1" ? params[:user][:role] = "walker" : params[:user][:role] = "owner"
