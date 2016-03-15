@@ -45,6 +45,8 @@ es:
           attributes:
             born_date:
               blank: vacío
+            name: 
+              blank: vacío
             num_chip:
               blank: vacío
               taken: registrado
