@@ -67,6 +67,10 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
 
+  gem "awesome_print", require:"ap"
+
+  gem 'quiet_assets'
+
   gem 'pry-rails'
 
   # populate database
