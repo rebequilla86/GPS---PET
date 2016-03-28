@@ -27,8 +27,7 @@
     <% if current_user.walker? %>
       <div class="form-group">
         <%= f.label :dogs %>
-        <span class="glyphicon glyphicon-plus"></span>
-        <%= f.text_field :dogs, :autofocus => true, class: 'form-control' %>
+        <%= f.select(:dogs, Race.all.map {|race| [race.name, race.name]}, {}, { :multiple => true }) %>
       </div>
       <div class="form-group">
         <%= f.label :experience %>

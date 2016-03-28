@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
 
     if params[:action] == 'update'
       params[:user][:is_walker] == "1" ? params[:user][:role] = "walker" : params[:user][:role] = "owner"
+      params[:user][:dogs] = params[:user][:dogs].join(", ").sub!(", ", "")
+
       devise_parameter_sanitizer.for(:account_update) { 
         |u| u.permit(registration_params << :current_password)
       }
