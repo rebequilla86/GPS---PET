@@ -40,6 +40,8 @@ es:
         updated_user: Usuario actualizado 
         walkers: Paseadores
     errors:
+      messages:
+        record_invalid: Registro inválido
       models:
         pet:
           attributes:
