@@ -11,5 +11,5 @@
 class Race < ActiveRecord::Base
 
   # associations
-  belongs_to :pet, inverse_of: :races
+  #has_many :pet, inverse_of: :races
 end

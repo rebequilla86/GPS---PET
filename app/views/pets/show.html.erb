@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.born_date') %>:</strong>
-    <%= @pet.born_date %>
+    <%= @pet.born_date.strftime("%d/%m/%Y") %>
   </div>
 
   <div class="form-group">

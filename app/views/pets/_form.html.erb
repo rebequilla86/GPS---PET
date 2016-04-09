@@ -28,7 +28,7 @@
     <% if request.url.include? "new" %>
       <%= f.text_field :born_date, id: 'datepicker', value: DateTime.now.strftime("%d/%m/%Y"), dataclass: 'form-control', data: { required: true } %>
     <% else %>
-      <%= f.text_field :born_date, id: 'datepicker', dataclass: 'form-control', data: { required: true } %>
+      <%= f.text_field :born_date, value: @pet.born_date.strftime("%d/%m/%Y"), id: 'datepicker', dataclass: 'form-control', data: { required: true } %>
     <% end %>
   </div>
 
