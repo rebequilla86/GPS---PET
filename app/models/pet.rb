@@ -17,7 +17,7 @@ class Pet < ActiveRecord::Base
 
   # associations
   belongs_to :user, inverse_of: :pets
-  has_one :race, inverse_of: :pets
+  has_one :race, inverse_of: :pet
   has_many :route, inverse_of: :pets
 
   # validations

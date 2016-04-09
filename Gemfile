@@ -80,4 +80,5 @@ group :development, :test do
   gem 'spring-commands-rspec'
 end
 
+# Detail log
 gem 'rails_12factor', group: :production
