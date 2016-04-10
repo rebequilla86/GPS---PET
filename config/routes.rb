@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :pets
+  resources :routes
   
   resources :users do
   	get 'walker', :on => :collection

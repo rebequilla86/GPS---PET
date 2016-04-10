@@ -21,6 +21,13 @@ es:
         #show: Mostrar
         send: Enviar
         sure: ¿Estás seguro?
+      route:
+        created_at: Fecha de creación
+        delete: Borrar
+        gps_id: Identificador GPS
+        list: Listado de rutas
+        new_route: Nuevo ruta
+        see: Ver
       user:
         change_role: Cambiar rol
         current_password: Contraseña actual
@@ -67,6 +74,9 @@ es:
       pet: 
         one: Mascota
         other: Mascotas
+      routes:
+        one: Ruta
+        other: Rutas
       user: 
         one: Usuario
         other: Usuarios

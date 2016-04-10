@@ -1,5 +1,5 @@
 <div class="container">
-  <h2><%= t 'activerecord.attributes.pet.list' %> </h2>
+  <h2><%= t 'activerecord.attributes.pet.list' %></h2>
 
   <%= link_to t('activerecord.attributes.pet.new_pet'), new_pet_path %>
 
@@ -21,7 +21,7 @@
         <td><%= pet.born_date.to_date.strftime("%d/%m/%Y") %></td>
         <td><%= pet.comment %></td>
         <!-- Link to open the routes -->
-        <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_path(pet) %></td>
+        <td><%= link_to (t 'activerecord.attributes.pet.routes'), routes_path() %></td>
         <td><%= link_to (t 'activerecord.attributes.pet.edit'), edit_pet_path(pet) %></td>
         <td><%= link_to (t 'activerecord.attributes.pet.delete'), pet_path(pet),
                 method: :delete,
