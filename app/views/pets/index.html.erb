@@ -18,7 +18,7 @@
         <td><%= pet.name %></td>
         <td><%= pet.num_chip %></td>
         <td><%= pet.race %></td> 
-        <td><%= pet.born_date.to_date %></td>
+        <td><%= pet.born_date.to_date.strftime("%d/%m/%Y") %></td>
         <td><%= pet.comment %></td>
         <!-- Link to open the routes -->
         <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_path(pet) %></td>
