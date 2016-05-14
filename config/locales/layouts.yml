@@ -3,6 +3,7 @@ es:
     navigation:
       home: Inicio
     navigation_links: 
+      dogs: Perros
       edit_account: Perfil
       sign_in: Entra
       sign_out: Salir

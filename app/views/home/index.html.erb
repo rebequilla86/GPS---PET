@@ -1,7 +1,7 @@
-<h3><%= t('home.welcome') %></h3>
+<!--<h3><%#= t('home.welcome') %></h3>-->
 <% if current_user.admin? %>
 	<p><%= link_to t('activerecord.models.user', :count => User.all), users_path %> <%= User.count %> <%= t('home.registered', :count => User.all) %></p>
 <% else %>
-	<% @pets = Pet.where(user_id: current_user.id) %>
-  <%= render template: "pets/index", collection: @pets %>
+  <h1 style="text-align: center; font-weight: bold;"><%= t('home.welcome') %></h1>
+	<h1 style="text-align: center; margin-top: 2cm;"><%= t('home.slogan') %></h1>
 <% end %>

@@ -13,6 +13,7 @@
       <th colspan="3"></th>
     </tr>
 
+    <% @pets = Pet.where(user_id: current_user.id) %>
     <% @pets.each do |pet| %>
       <tr>
         <td><%= pet.name %></td>
