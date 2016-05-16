@@ -58,6 +58,7 @@ es:
       new:
         cancel: Cancelar
         sign_up: Regístrate
+      num_dogs: Introduzca número de perros que cuida
       password: Introduzca su contraseña
       phone: Introduzca su teléfono
       repeat_password: "Repita la contraseña"

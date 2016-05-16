@@ -37,6 +37,7 @@ es:
         email: Email
         experience: Experiencia
         name: Nombre
+        num_pets: Número de perros
         last_name: Apellidos
         password: Contraseña
         password_confirmation: Confirmación contraseña

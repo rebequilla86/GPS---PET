@@ -22,6 +22,7 @@
 #  is_walker              :string
 #  dogs                   :string
 #  experience             :text
+#  num_pets               :integer
 #
 
 FactoryGirl.define do

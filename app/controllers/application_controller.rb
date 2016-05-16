@@ -14,11 +14,11 @@ class ApplicationController < ActionController::Base
 
   def configure_devise_permitted_parameters
     registration_params = [:name, :last_name, :email, :phone, :password, :password_confirmation, :is_walker, 
-                           :role, :dogs, :experience]
+                           :role, :dogs, :experience, :num_pets]
 
     if params[:action] == 'update'
       params[:user][:is_walker] == "1" ? params[:user][:role] = "walker" : params[:user][:role] = "owner"
-      params[:user][:dogs] = params[:user][:dogs].join(", ").sub!(", ", "")
+      #params[:user][:dogs] = params[:user][:dogs].join(", ").sub!(", ", "")
 
       devise_parameter_sanitizer.for(:account_update) { 
         |u| u.permit(registration_params << :current_password)
