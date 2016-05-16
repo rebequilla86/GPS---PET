@@ -1,3 +1,15 @@
+<script>
+  var is_walker = document.getElementById('is_walker');
+  var walker_div = document.getElementById('walker');
+  is_walker.onclick = function() {
+    if(this.checked) {
+      walker_div.style['display'] = 'block';
+    } else {
+      walker_div.style['display'] = 'none';
+    }
+  };
+</script>
+
 <div class="authform">
   <h3><%= t('devise.registrations.edit.edit.') %> <%= User.model_name.human %></h3>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
@@ -24,12 +36,22 @@
       <% end %>
     </div>
 
-    <% if current_user.walker? %>
+    <div class="form-group">
+      <%= f.label :is_walker %>
+      <%= f.check_box :is_walker, id: 'is_walker' %>
+    </div>
+
+    <% display_walker = current_user.walker? ? 'block' : 'none' %>
+    <div id="walker" style="display:<%= display_walker %>;">    
+      <div class="form-group">
+        <%= f.label :num_pets %>
+        <%= f.text_field :num_pets, :autofocus => true, :placeholder => t('devise.registrations.num_dogs'), class: 'form-control' %>
+      </div>
       <div class="form-group">
         <%= f.label :experience %>
         <%= f.text_area(:experience, size: '50x5', :autofocus => true, :placeholder => t('devise.registrations.experience'), class: 'form-control') %>
       </div>
-    <% end %>
+    </div>
 
     <fieldset>
       <p><%= t('devise.registrations.edit.blank_field') %></p>
@@ -42,11 +64,6 @@
         <%= f.password_field :password_confirmation, :placeholder => t('devise.registrations.repeat_password'), class: 'form-control' %>
       </div>
     </fieldset>
-
-    <div class="form-group">
-      <%= f.label :is_walker %>
-      <%= f.check_box :is_walker %>
-    </div>
 
     <fieldset>
       <p><%= t('devise.registrations.edit.changes') %></p>
