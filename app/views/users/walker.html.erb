@@ -14,17 +14,17 @@
 	  </tr>
 
 	  <% @users.each do |user| %>
-	  	<% unless user.email == current_user.email %>
-		    <tr>
-		      <td><%= image_tag avatar_url(user, 25) %></td>
-		      <td><%= user.email %></td>
-		      <td><%= user.name %></td>
-		      <td><%= user.last_name %></td> 
-		      <td><%= user.phone %></td>
-		      <td><%= user.dogs %></td>
-		      <td><%= user.experience %></td>
-		    </tr>
-	    <% end %>
+	  	<%# unless user.email == current_user.email %>
+	    <tr>
+	      <td><%= image_tag avatar_url(user, 25) %></td>
+	      <td><%= user.email %></td>
+	      <td><%= user.name %></td>
+	      <td><%= user.last_name %></td> 
+	      <td><%= user.phone %></td>
+	      <td><%= user.dogs %></td>
+	      <td><%= user.experience %></td>
+	    </tr>
+	    <%# end %>
 	  <% end %>
 	</table>
 </div>
