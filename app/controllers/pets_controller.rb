@@ -31,6 +31,11 @@ class PetsController < ApplicationController
   def update
     @pet = Pet.find(params[:id])
  
+    if params[:pet][:remove_avatar] == '1' 
+      @pet.remove_avatar!
+      @pet.save
+    end
+    #binding.pry
     if @pet.update(pet_params)
       redirect_to @pet
     else
@@ -47,7 +52,7 @@ class PetsController < ApplicationController
 
   private
     def pet_params
-      params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment, :race)
+      params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment, :race, :avatar)
     end
 
 end

@@ -27,4 +27,8 @@ class UserPolicy
     @current_user
   end
 
+  def hire_walker?
+    @current_user
+  end
+
 end

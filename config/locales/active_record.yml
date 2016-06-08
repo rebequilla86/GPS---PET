@@ -2,6 +2,7 @@ es:
   activerecord:
     attributes:
       pet:
+        avatar: Avatar
         editing: Editando a
         back: Volver
         born_date: Fecha de nacimiento
@@ -17,6 +18,7 @@ es:
         new_pet: Nuevo perro
         num_chip: Número de chip
         race: Raza
+        remove_avatar: Borrar avatar
         routes: Rutas
         #show: Mostrar
         send: Enviar
@@ -33,9 +35,9 @@ es:
         current_password: Contraseña actual
         delete_user: Borrar 
         deleted_user: Usuario borrado
-        dogs: Perros
+        dogs: Perros que paseo
         email: Email
-        experience: Experiencia
+        experience: Experiencia como paseador
         name: Nombre
         num_pets: Número de perros
         last_name: Apellidos
@@ -53,6 +55,7 @@ es:
       models:
         pet:
           attributes:
+            avatar: Debe ser menos de 500KB
             born_date:
               blank: vacío
             name: 

@@ -52,13 +52,13 @@ es:
         changes: Debes entrar con tu contraseña actual para hacer los cambios.
         update: Actualizar
       email: Introduzca su email
-      experience: Introduzca su experiencia
+      experience: Experiencia como paseador
       last_name: Introduzca sus apellidos
       name: Introduzca su nombre
       new:
         cancel: Cancelar
         sign_up: Regístrate
-      num_dogs: Introduzca número de perros que cuida
+      num_dogs: Introduzca número de perros que pasea
       password: Introduzca su contraseña
       phone: Introduzca su teléfono
       repeat_password: "Repita la contraseña"

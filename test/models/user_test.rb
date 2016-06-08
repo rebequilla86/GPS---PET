@@ -22,7 +22,8 @@
 #  is_walker              :string
 #  dogs                   :string
 #  experience             :text
-#  num_pets               :integer
+#  walker                 :integer
+#  hired                  :integer
 #
 
 require 'test_helper'

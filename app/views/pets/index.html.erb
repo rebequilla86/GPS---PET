@@ -5,6 +5,7 @@
 
   <table class="table">
     <tr>
+      <th><%= t 'activerecord.attributes.pet.avatar' %></th>
       <th><%= t 'activerecord.attributes.pet.name' %></th>
       <th><%= t 'activerecord.attributes.pet.num_chip' %></th>
       <th><%= t 'activerecord.attributes.pet.race' %></th>
@@ -16,6 +17,7 @@
     <% @pets = Pet.where(user_id: current_user.id) %>
     <% @pets.each do |pet| %>
       <tr>
+        <td><%= image_tag pet.avatar.thumb.url %></td>
         <td><%= pet.name %></td>
         <td><%= pet.num_chip %></td>
         <td><%= pet.race %></td> 

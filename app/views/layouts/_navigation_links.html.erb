@@ -4,7 +4,7 @@
   <% if current_user.owner? || current_user.walker? %>
   	<li><%= link_to t('layouts.navigation_links.walkers'), walker_users_path %></li>
   <% end %>
-  <li><%= link_to t('layouts.navigation_links.edit_account'), edit_user_registration_path %></li>
+  <li><%= link_to current_user.name, edit_user_registration_path %></li>
   <li><%= link_to t('layouts.navigation_links.sign_out'), destroy_user_session_path, :method=>'delete' %></li>
 <% else %>
   <li><%= link_to t('layouts.navigation_links.sign_in'), new_user_session_path, class: 'navbar-nav' %></li>

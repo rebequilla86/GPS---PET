@@ -3,10 +3,10 @@
 
 	<table class="table">
 	  <tr>
-	    <th>Avatar<%#= t 'activerecord.attributes.user.email' %></th>
-	    <th><%= t 'activerecord.attributes.user.email' %></th>
+	    <th><%= t 'activerecord.attributes.user.avatar' %></th>
 	    <th><%= t 'activerecord.attributes.user.name' %></th>
 	    <th><%= t 'activerecord.attributes.user.last_name' %></th>
+	    <th><%= t 'activerecord.attributes.user.email' %></th>
 	    <th><%= t 'activerecord.attributes.user.phone' %></th>
 	    <th><%= t 'activerecord.attributes.user.dogs' %></th>
 	    <th><%= t 'activerecord.attributes.user.experience' %></th>
@@ -14,17 +14,32 @@
 	  </tr>
 
 	  <% @users.each do |user| %>
-	  	<%# unless user.email == current_user.email %>
-	    <tr>
-	      <td><%= image_tag avatar_url(user, 25) %></td>
-	      <td><%= user.email %></td>
-	      <td><%= user.name %></td>
-	      <td><%= user.last_name %></td> 
-	      <td><%= user.phone %></td>
-	      <td><%= user.dogs %></td>
-	      <td><%= user.experience %></td>
-	    </tr>
-	    <%# end %>
+			<%= form_tag hire_walker_users_path do %>
+
+				<% @class_button = (current_user.walker.present? && (user.hired == current_user.id)) || (current_user.walker.nil? && user.hired.nil?) ? 'button' : 'hidden' %>	
+				<% if (current_user.walker == user.id) && (user.hired == current_user.id) && (request.url.include?"walker") 
+					@hired = "Dejar servicios" 
+		    else
+		    	if (current_user.walker == user.id) && (user.hired == current_user.id) && (request.url.include?"hire_walker") 
+			    	@hired = "Contratar"   
+			    end
+		    end %>
+
+		    <tr>
+		      <td><%= image_tag avatar_url(user, 25) %></td>
+		      <td><%= user.name %></td>
+		      <td><%= user.last_name %></td> 
+		      <td><%= user.email %></td>
+		      <td><%= user.phone %></td>
+		      <td><%= user.dogs %></td>
+		      <td><%= user.experience %></td>
+		      <% unless (user.email == current_user.email) %>
+		      	<td><%= button_tag @hired, value: @hired, :class => @class_button %></td>
+		    	<% end %>
+		      <%= hidden_field_tag :walker, user.id %>
+		      <%= hidden_field_tag :hire, @hired %>
+		    </tr>
+	    <% end %>
 	  <% end %>
 	</table>
 </div>

@@ -11,9 +11,12 @@
 #  updated_at :datetime         not null
 #  user_id    :integer
 #  race       :string
+#  avatar     :string
 #
 
 class Pet < ActiveRecord::Base
+
+  mount_uploader :avatar, AvatarUploader
 
   # associations
   belongs_to :user, inverse_of: :pets
@@ -23,4 +26,11 @@ class Pet < ActiveRecord::Base
   # validations
   validates :name, :born_date, presence: true
   validates :num_chip, presence: true, length: { is: 15 }, uniqueness: true
+  validates_processing_of :avatar
+  validate :avatar_size_validation
+
+  private
+	  def avatar_size_validation
+	    errors[:avatar] << t('activerecord.attributes.errors.models.pet.attributes.avatar') if avatar.size > 0.5.megabytes
+	  end
 end

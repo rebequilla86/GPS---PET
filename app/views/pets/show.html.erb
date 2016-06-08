@@ -1,5 +1,10 @@
 <div class="authform">
   <div class="form-group">
+    <strong><%= t('activerecord.attributes.pet.avatar') %>:</strong>
+    <%= image_tag @pet.avatar.thumb.url %>
+  </div>
+
+  <div class="form-group">
     <strong><%= t('activerecord.attributes.pet.name') %>:</strong>
     <%= @pet.name %>
   </div>
@@ -25,5 +30,5 @@
   </div>
 
   <%= link_to (t('activerecord.attributes.pet.edit')), edit_pet_path(@pet), :class => 'button left' %> 
-  <%= link_to (t('activerecord.attributes.pet.back')), root_path, :class => 'button right' %>
+  <%= link_to (t('activerecord.attributes.pet.back')), pets_path, :class => 'button right' %>
 </div>
