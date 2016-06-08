@@ -33,7 +33,7 @@
 		      <td><%= user.phone %></td>
 		      <td><%= user.dogs %></td>
 		      <td><%= user.experience %></td>
-		      <% unless (user.email == current_user.email) %>
+		      <% unless (user.email == current_user.email) || (current_user.is_walker.present?) %>
 		      	<td><%= button_tag @hired, value: @hired, :class => @class_button %></td>
 		    	<% end %>
 		      <%= hidden_field_tag :walker, user.id %>

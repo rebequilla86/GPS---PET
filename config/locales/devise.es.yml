@@ -57,6 +57,7 @@ es:
       name: Introduzca su nombre
       new:
         cancel: Cancelar
+        send: Enviar
         sign_up: Regístrate
       num_dogs: Introduzca número de perros que pasea
       password: Introduzca su contraseña

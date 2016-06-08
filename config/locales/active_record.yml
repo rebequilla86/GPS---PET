@@ -13,6 +13,7 @@ es:
         error: No se puede registrar debido a
         errors: errores
         list: Listado de perros
+        list_walker: Listado de perros que paseo
         name: Nombre
         new: Añadir a
         new_pet: Nuevo perro
