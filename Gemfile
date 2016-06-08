@@ -36,6 +36,10 @@ gem 'jquery-ui-rails'
 gem "rmagick"
 gem "carrierwave"
 
+# Paginator
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
