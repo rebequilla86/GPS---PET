@@ -1,7 +1,9 @@
 class PetsController < ApplicationController
 
   def index
-  	@pet = Pet.all
+  	#@pet = Pet.all
+    @own_pets = Pet.where(user_id: current_user.id)
+    @onwer_hire_walker = User.where(walker: current_user.id)
   end
 
   def show

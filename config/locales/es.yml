@@ -19,10 +19,12 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+es:
+  hello: "Hola mundo"
   views:
     pagination:
-      previous: "&lt; Previous"
-      next: "Next &gt;"
+      first: "Primero"
+      next: "Siguiente &gt;"
+      last: "Último"
+      previous: "&lt; Previo"
       truncate: "..."

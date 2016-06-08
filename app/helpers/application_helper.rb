@@ -11,4 +11,16 @@ module ApplicationHelper
 	  link_to title, {:sort => column, :direction => direction}, {:class => css_class}
 	end
 
+	def get_races(user)
+		owner_hire_walker = User.where(walker: user.id) 
+		@races = []
+  	owner_hire_walker.each do |user|
+  		@pets = Pet.where(user_id: user.id)
+  		@pets.each do |pet|
+  			@races << pet.race
+  		end
+    end
+    return @races
+	end
+
 end

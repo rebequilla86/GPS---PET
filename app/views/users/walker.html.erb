@@ -15,15 +15,7 @@
 
 	  <% @users.each do |user| %>
 			<%= form_tag hire_walker_users_path do %>
-
-				<% @class_button = (current_user.walker.present? && (user.hired == current_user.id)) || (current_user.walker.nil? && user.hired.nil?) ? 'button' : 'hidden' %>	
-				<% if (current_user.walker == user.id) && (user.hired == current_user.id) && (request.url.include?"walker") 
-					@hired = "Dejar servicios" 
-		    else
-		    	if (current_user.walker == user.id) && (user.hired == current_user.id) && (request.url.include?"hire_walker") 
-			    	@hired = "Contratar"   
-			    end
-		    end %>
+				<% @hired = (@walker.present? && @walker == user.id) ? "Dejar servicios" : "Contratar" %>
 
 		    <tr>
 		      <td><%= image_tag avatar_url(user, 25) %></td>
@@ -31,10 +23,11 @@
 		      <td><%= user.last_name %></td> 
 		      <td><%= user.email %></td>
 		      <td><%= user.phone %></td>
-		      <td><%= user.dogs %></td>
+		      <% @races = get_races(user) %>
+		      <td><%= @races.join(', ') unless @races.blank? %></td>
 		      <td><%= user.experience %></td>
-		      <% unless (user.email == current_user.email) || (current_user.is_walker.present?) %>
-		      	<td><%= button_tag @hired, value: @hired, :class => @class_button %></td>
+		      <% unless (user.email == current_user.email) %>
+		      	<td><%= button_tag @hired, value: @hired, :class => 'button' %></td>
 		    	<% end %>
 		      <%= hidden_field_tag :walker, user.id %>
 		      <%= hidden_field_tag :hire, @hired %>
@@ -42,4 +35,5 @@
 	    <% end %>
 	  <% end %>
 	</table>
+	<div style="text-align: center;"><%= paginate @users, :theme => 'twitter-bootstrap-3' %></div>
 </div>
