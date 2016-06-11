@@ -15,7 +15,7 @@
 
 	  <% @users.each do |user| %>
 			<%= form_tag hire_walker_users_path do %>
-				<% @hired = (@walker.present? && @walker == user.id) ? "Dejar servicios" : "Contratar" %>
+				<% @hired = (current_user.walker.present? && current_user.walker == user.id) ? "Dejar servicios" : "Contratar" %>
 
 		    <tr>
 		      <td><%= image_tag avatar_url(user, 25) %></td>

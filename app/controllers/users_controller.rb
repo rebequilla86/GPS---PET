@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-  PER_PAGE = 6
+  PER_PAGE = 5
 
   def index
     @users = User.all
