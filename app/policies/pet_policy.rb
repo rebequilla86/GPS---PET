@@ -31,6 +31,10 @@ class PetPolicy
     user.admin?
   end
 
+  def routes
+    user.walker?
+  end
+
   Scope = Struct.new(:user, :scope) do
   	def resolve
   		user.admin? ? scope.all : scope.where(id: user.pets)
