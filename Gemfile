@@ -10,6 +10,10 @@ gem 'rails', '4.2.1'
 # Use prostgresql
 gem 'pg', '~> 0.18.2'
 
+# Delayed_job
+gem 'delayed_job_active_record'
+gem "delayed_job_web"
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
@@ -48,6 +52,9 @@ gem 'jbuilder', '~> 2.0'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Google maps
+gem 'gmaps4rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
