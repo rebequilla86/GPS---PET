@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607130156) do
+ActiveRecord::Schema.define(version: 20160610094152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "pets", force: :cascade do |t|
     t.string   "name"
@@ -35,11 +51,12 @@ ActiveRecord::Schema.define(version: 20160607130156) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.integer  "gps_id"
+    t.string   "file_name"
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "walk_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,5 +85,16 @@ ActiveRecord::Schema.define(version: 20160607130156) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "walks", force: :cascade do |t|
+    t.string   "name"
+    t.time     "duration"
+    t.datetime "last_data_received"
+    t.integer  "state"
+    t.integer  "walker"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "pet_id"
+  end
 
 end
