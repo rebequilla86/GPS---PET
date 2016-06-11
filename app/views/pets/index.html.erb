@@ -23,8 +23,7 @@
         <td><%= pet.race %></td> 
         <td><%= pet.born_date.to_date.strftime("%d/%m/%Y") %></td>
         <td><%= pet.comment %></td>
-        <!-- Link to open the routes -->
-        <td><%= link_to (t 'activerecord.attributes.pet.routes'), routes_path() %></td>
+        <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_routes_path(pet) %></td>
         <td><%= link_to (t 'activerecord.attributes.pet.edit'), edit_pet_path(pet) %></td>
         <td><%= link_to (t 'activerecord.attributes.pet.delete'), pet_path(pet),
                 method: :delete,
@@ -58,7 +57,7 @@
             <td><%= pet.race %></td> 
             <td><%= pet.born_date.to_date.strftime("%d/%m/%Y") %></td>
             <td><%= pet.comment %></td>
-            <td><%= link_to (t 'activerecord.attributes.pet.routes'), routes_path() %></td>
+            <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_routes_path(pet) %></td>
           </tr>
        <% end unless @pets.nil? %>
     </table>

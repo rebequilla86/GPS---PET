@@ -37,7 +37,6 @@ class PetsController < ApplicationController
       @pet.remove_avatar!
       @pet.save
     end
-    #binding.pry
     if @pet.update(pet_params)
       redirect_to @pet
     else
@@ -49,7 +48,22 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:id])
     @pet.destroy
  
-    redirect_to root_path
+    redirect_to pets_path
+  end
+
+  def routes
+    @walks = Walk.all
+    @hash = Gmaps4rails.build_markers(@walks) do |walk, marker|
+      marker.lat 43.124228 #walk.latitude
+      marker.lng 5.928 # walk.longitude
+    end
+  end
+
+  def new_route
+    @walk = Walk.new(walk_params)
+    @pet = params[:pet_id].to_i
+    %x(bundle exec rake gps_simulator:process_kml_file[#{@walk},#{@pet}])
+    render "routes"
   end
 
   private
@@ -57,4 +71,7 @@ class PetsController < ApplicationController
       params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment, :race, :avatar)
     end
 
+    def walk_params
+      params[:walk]
+    end
 end
