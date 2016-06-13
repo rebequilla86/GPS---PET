@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <%= f.label :race %><br>
-    <%= f.select(:race, Race.all.map {|race| [race.name, race.name]}) %>
+    <%= f.select(:race, Race.all.map {|race| [race.name, race.name]}, {}, { class: 'form-control' }) %>
   </div> 
  
   <div class="form-group">
@@ -47,8 +47,8 @@
     <%= f.file_field :avatar %><br>
     <% if f.object.avatar? %>
       <%= image_tag(@pet.avatar_url) if @pet.avatar? %><br>
-      <%= f.label :remove_avatar %>
-      <%= f.check_box :remove_avatar %> 
+      <%#= f.label :remove_avatar %>
+      <%#= f.check_box(:remove_avatar, method: :delete, data: { confirm: (t 'activerecord.attributes.pet.sure') }) %> 
     <% end %>
   </div>
  
