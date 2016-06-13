@@ -1,9 +1,13 @@
 class PetsController < ApplicationController
+  PER_PAGE = 2
 
   def index
-  	#@pet = Pet.all
-    @own_pets = Pet.where(user_id: current_user.id)
+    @own_pets = Pet.where(user_id: current_user.id).order('name ASC').page(params[:page]).per(PER_PAGE)
+
     @onwer_hire_walker = User.where(walker: current_user.id)
+    @onwer_hire_walker.each do |owner| 
+      @pets = Pet.where(user_id: owner.id).order('name ASC').page(params[:page]).per(PER_PAGE)
+    end
   end
 
   def show
