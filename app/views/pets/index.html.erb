@@ -30,7 +30,9 @@
       </tr>
     <% end %>
   </table>
-  <div style="text-align: center;"><%= paginate @own_pets, :theme => 'twitter-bootstrap-3' %></div>
+  <% unless @own_pet.nil? %>
+    <div style="text-align: center;"><%= paginate @own_pet, :theme => 'twitter-bootstrap-3' %></div>
+  <% end %>
 </div>
 
 <% if current_user.is_walker.present? %>
@@ -61,5 +63,7 @@
        <% end unless @pets.nil? %>
     </table>
   </div>
-  <div style="text-align: center;"><%= paginate @pets, :theme => 'twitter-bootstrap-3' %></div>
+  <% unless @pets.nil? %>
+    <div style="text-align: center;"><%= paginate @pets, :theme => 'twitter-bootstrap-3' %></div>
+  <% end %>
 <% end %>

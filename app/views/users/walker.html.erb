@@ -35,5 +35,7 @@
 	    <% end %>
 	  <% end %>
 	</table>
-	<div style="text-align: center;"><%= paginate @users, :theme => 'twitter-bootstrap-3' %></div>
+	<% unless @users.nil? %>
+		<div style="text-align: center;"><%= paginate @users, :theme => 'twitter-bootstrap-3' %></div>
+	<% end %>
 </div>
