@@ -5,9 +5,10 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   PER_PAGE = 5
+  PER_PAGE_ADMIN = 10
 
   def index
-    @users = User.all
+    @users = User.all.order('name ASC').reorder('last_name DESC').page(params[:page]).per(PER_PAGE_ADMIN)
     authorize User
   end
 
@@ -21,6 +22,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
     if @user.update_attributes(secure_params)
+      @user.is_walker = (@user.role == 2) ? "1" : nil
+      @user.save!
       redirect_to users_path, :notice => t('activerecord.attributes.user.updated_user')
     else
       redirect_to users_path, :alert => t('activerecord.attributes.user.unable_user')
@@ -39,6 +42,7 @@ class UsersController < ApplicationController
     @page = params[:page]
 
     @users = User.walker.order('name ASC').reorder('last_name DESC').page(params[:page]).per(PER_PAGE)
+    @num_pets = Pet.where(user_id: current_user.id).count
     authorize @users
     @walker = current_user.walker if current_user.walker.present?
     #@users = @users.order(sort_column + " " + sort_direction)

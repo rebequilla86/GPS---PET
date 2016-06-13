@@ -36,10 +36,12 @@
       <% end %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :is_walker %>
-      <%= f.check_box :is_walker, id: 'is_walker' %>
-    </div>
+    <% unless current_user.admin? %>
+      <div class="form-group">
+        <%= f.label :is_walker %>
+        <%= f.check_box :is_walker, id: 'is_walker' %>
+      </div>
+    <% end %>
 
     <% display_walker = current_user.walker? ? 'block' : 'none' %>
     <div id="walker" style="display:<%= display_walker %>;">    

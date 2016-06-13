@@ -25,6 +25,7 @@ es:
         send: Enviar
         sure: ¿Estás seguro?
       user:
+        admin: Administrador
         change_role: Cambiar rol
         current_password: Contraseña actual
         delete_user: Borrar 
@@ -35,6 +36,7 @@ es:
         name: Nombre
         num_pets: Número de perros
         last_name: Apellidos
+        owner: Propietario
         password: Contraseña
         password_confirmation: Confirmación contraseña
         phone: Teléfono
@@ -42,6 +44,8 @@ es:
         sure: ¿Estás seguro?
         unable_user: No tiene permiso para actualizar un usuario
         updated_user: Usuario actualizado 
+        user_list: Listado de usuarios
+        walker: Paseador
         walkers: Paseadores
       walk:
         created_at: Fecha de creación

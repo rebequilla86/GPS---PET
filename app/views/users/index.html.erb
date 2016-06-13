@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h3> <%= t('activerecord.models.user', :count => User.all) %></h3>
+    <h3> <%= t('activerecord.attributes.user.user_list') %></h3>
     <div class="column">
       <table class="table">
         <tbody>
@@ -14,3 +14,4 @@
     </div>
   </div>
 </div>
+<div style="text-align: center;"><%= paginate @users, :theme => 'twitter-bootstrap-3' %></div>

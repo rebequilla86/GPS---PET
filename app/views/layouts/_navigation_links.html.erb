@@ -1,7 +1,10 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
-  <li><%= link_to t('layouts.navigation_links.dogs'), pets_path %></li>
+    <% if current_user.admin? %>
+      <li><%= link_to t('layouts.navigation_links.users'), users_path %></li>
+    <% end %>
   <% if current_user.owner? || current_user.walker? %>
+    <li><%= link_to t('layouts.navigation_links.dogs'), pets_path %></li>
   	<li><%= link_to t('layouts.navigation_links.walkers'), walker_users_path %></li>
   <% end %>
   <li><%= link_to current_user.name, edit_user_registration_path %></li>
