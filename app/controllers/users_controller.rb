@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     @users = User.walker.order('name ASC').reorder('last_name DESC').page(params[:page]).per(PER_PAGE)
     authorize @users
     #@users = @users.order(sort_column + " " + sort_direction)
-    render "walker"
+    redirect_to walker_users_path
   end
 
   private
