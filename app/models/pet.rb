@@ -21,7 +21,7 @@ class Pet < ActiveRecord::Base
   # associations
   belongs_to :user, inverse_of: :pets
   #belongs_to :race, inverse_of: :pet
-  has_many :walks, inverse_of: :pets
+  has_many :walks, inverse_of: :pet, dependent: :destroy
 
   # validations
   validates :name, :born_date, presence: true
