@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get 'routes'
     get 'new_route'
   end
-  #resources :walks
+  resources :walks, :tracks, :locations
   
   resources :users do
   	get 'walker', :on => :collection
