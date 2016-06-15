@@ -1,5 +1,5 @@
 class WalksController < ApplicationController
-  before_action :set_route, only: [:show, :edit, :update, :destroy]
+  before_action :set_walk, only: [:show, :edit, :update, :destroy]
 
   # GET /walk
   # GET /walk.json
@@ -17,13 +17,13 @@ class WalksController < ApplicationController
   end
 
   # GET /walk/new
-  # def new
-  #   @walk = Walk.new
-  # end
+  def new
+    @walk = Walk.new
+  end
 
   # GET /walk/1/edit
-  # def edit
-  # end
+  def edit
+  end
 
   # POST /walk
   # POST /walk.json
@@ -58,10 +58,10 @@ class WalksController < ApplicationController
   # DELETE /walk/1
   # DELETE /walk/1.json
   def destroy
+    @walk = Walk.find(params[:id])
     @walk.destroy
     respond_to do |format|
-      format.html { redirect_to walk_url, notice: 'Route was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to pet_routes_path(@walk.pet_id), notice: 'Se ha borrado la ruta satisfactoriamente.' }
     end
   end
 
