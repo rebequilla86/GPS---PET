@@ -1,0 +1,32 @@
+<div class="container">
+  <h2><%= t 'activerecord.attributes.walk.list' %></h2>
+
+  <table class="table">
+    <tr>
+      <th><%= t 'activerecord.attributes.walk.name' %></th>
+      <th><%= t 'activerecord.attributes.walk.created_at' %></th>
+      <th><%= t 'activerecord.attributes.walk.duration' %></th>
+      <th><%= t 'activerecord.attributes.walk.last_data_received' %></th>
+      <th><%= t 'activerecord.attributes.walk.state' %></th>
+      <th><%= t 'activerecord.attributes.walk.walker' %></th>
+      <th colspan="3"></th>
+    </tr>
+
+    <% unless @walks.nil? %>
+      <% @walks.each do |walk| %>
+        <tr>
+          <td><%= link_to walk.name, {:controller => "pets", :action => "show_route", :walk_id => walk.id, :pet_id => @pet_id } %></td>
+          <td><%= walk.created_at.to_formatted_s(:db) %></td>
+          <td><%= walk.duration.strftime("%H:%M:%S") %></td>
+          <td><%= walk.last_data_received %></td>
+          <td><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
+          <td><%= walk.walker %></td>
+          <td><%= link_to (t 'activerecord.attributes.walk.delete'), walk_path(walk), 
+                  method: :delete, 
+                  data: { confirm: (t 'activerecord.attributes.pet.sure') } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  <div style="text-align: center;"><%= paginate @walks, :theme => 'twitter-bootstrap-3' %></div> 
+</div>

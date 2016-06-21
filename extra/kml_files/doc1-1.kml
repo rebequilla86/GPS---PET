@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Starter2012</name>
+	<visibility>0</visibility>
+	<LookAt>
+		<longitude>-15.45068247</longitude>
+		<latitude>28.13007155</latitude>
+		<altitude>0</altitude>
+		<heading>0</heading>
+		<tilt>0</tilt>
+		<range>235.9840335</range>
+		<altitudeMode>relativeToGround</altitudeMode>
+	</LookAt>
+	<Style id="path0Style">
+		<LineStyle>
+			<color>ff00ff00</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<Style id="path0Style0">
+		<LineStyle>
+			<color>ff00ff00</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<StyleMap id="path0Style1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#path0Style</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#path0Style0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Folder>
+		<name>Waypoints</name>
+		<visibility>0</visibility>
+		<Placemark>
+			<name>Avituallamiento Tenoya</name>
+			<visibility>0</visibility>
+			<description>Latitude: 28.1188647 Longitude : -15.49126614</description>
+			<styleUrl>#path0Style1</styleUrl>
+			<Point>
+				<coordinates>-15.4912661389,28.1188646983,158</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Meta</name>
+			<visibility>0</visibility>
+			<description>Latitude: 28.1300607417 Longitude : -15.4508335143</description>
+			<styleUrl>#path0Style1</styleUrl>
+			<Point>
+				<coordinates>-15.4508335143,28.1300607417,4.999999999999999</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Salida</name>
+			<visibility>0</visibility>
+			<description>Teror</description>
+			<styleUrl>#path0Style1</styleUrl>
+			<Point>
+				<coordinates>-15.5475988146,28.0596369971,589</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+	<Folder>
+		<name>Tracks</name>
+		<visibility>0</visibility>
+		<Folder>
+			<name>Rutas</name>
+			<visibility>0</visibility>
+			<Placemark>
+				<name>TransGCStarter2012</name>
+				<visibility>0</visibility>
+				<styleUrl>#path0Style1</styleUrl>
+				<MultiGeometry>
+					<LineString>
+						<coordinates>
+							-15.5455529597,28.0727580283,626.4400000000001 -15.5458240304,28.0728130136,628.36 -15.5460169818,28.0729440227,630.28 -15.5461530201,28.0730710085,631.72 -15.5461999588,28.0731069669,632.68 -15.5462810118,28.0731809791,634.13 -15.5463499948,28.0733409896,635.5700000000001 -15.5462189857,28.0735429935,636.53 -15.5462510046,28.0736299977,636.05 -15.5461550318,28.073791014,637.01 -15.5461360049,28.073841976,636.53 -15.5461329874,28.0740500148,637.01 
+						</coordinates>
+					</LineString>
+				</MultiGeometry>
+			</Placemark>
+		</Folder>
+	</Folder>
+</Document>
+</kml>

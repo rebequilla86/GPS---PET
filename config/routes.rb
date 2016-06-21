@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
   resources :pets do
     get 'routes'
     get 'new_route'
+    get 'show_route'
   end
   resources :walks, :tracks, :locations
   
@@ -16,5 +19,5 @@ Rails.application.routes.draw do
   	post 'hire_walker', :on => :collection
   end
 
-  mount DelayedJobWeb => "/delayed_job"
+  #mount Resque::Server.new, at: "/resque"
 end

@@ -12,6 +12,8 @@ es:
         edit: Editar
         error: No se puede registrar debido a
         errors: errores
+        finalized: Finalizado
+        in_progress: En progreso
         list: Listado de perros
         list_walker: Listado de perros que paseo
         name: Nombre

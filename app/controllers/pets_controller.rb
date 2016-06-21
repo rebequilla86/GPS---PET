@@ -15,7 +15,7 @@ class PetsController < ApplicationController
   end
 
   def new
-  	@pet = Pet.new
+    @pet = Pet.new
   end
 
   def edit
@@ -37,10 +37,10 @@ class PetsController < ApplicationController
   def update
     @pet = Pet.find(params[:id])
  
-    if params[:pet][:remove_avatar] == '1' 
-      @pet.remove_avatar!
-      @pet.save
-    end
+    # if params[:pet][:remove_avatar] == '1' 
+    #   @pet.remove_avatar!
+    #   @pet.save
+    # end
     if @pet.update(pet_params)
       redirect_to @pet
     else
@@ -57,64 +57,220 @@ class PetsController < ApplicationController
 
   def routes
     @pet_id = params[:pet_id].to_i
+
+    @actual_time = Time.now.strftime('%H:%M:%S')
+
+    @walk_in_process = Walk.where("pet_id = #{@pet_id} AND state = 0").to_a
+    if @walk_in_process.present? 
+      @points_locations = get_locations_in_process(@walk_in_process, @actual_time, 0)
+      @last_point = @points_locations.last if @points_locations.present?
+
+      @coordinates = get_last_point_track(@walk_in_process, 0)
+      @state = 0
+
+      unless @last_point.nil?
+        @last_point_at_moment = get_last_point_at_moment(@last_point) 
+        @walk_in_process[0].last_data_received = @last_point_at_moment.timer
+        @walk_in_process[0].save!
+      end
+
+      @track_id = get_track_id(@walk_in_process, 0)
+      @account_duration_track = Location.where(track_id: @track_id).count * 5.seconds
+      @walk_in_process[0].duration = Time.at(@account_duration_track).strftime("%H:%M:%S")
+      @walk_in_process[0].state = (@last_point - @coordinates == []) ? 1 : 0
+      @walk_in_process[0].save!
+
+      @duration = @last_point_track.timer unless @last_point_track.nil?
+      if @duration.to_date == Time.now.to_date
+        if (@duration.strftime('%H:%M:%S') < @actual_time) && (@last_point - @coordinates == [])
+          @walk_in_process[0].state = 1
+          @walk_in_process[0].last_data_received = @last_point_at_moment
+          @walk_in_process[0].duration = @duration.strftime("%H:%M:%S")
+          @walk_in_process[0].save!
+          @state = 1
+        end 
+      end unless @duration.nil?
+    else
+      @finished_walks = Walk.where("pet_id = #{@pet_id} AND state = 1").to_a
+      @finished_walk = @finished_walks.max_by(&:id)
+      if @finished_walk.present?
+        @points_locations = get_locations_finalized(@finished_walk, @actual_time, 1)
+        @last_point = @points_locations.last
+
+        unless @last_point.nil?
+          @last_point_at_moment = get_last_point_at_moment(@last_point) 
+          @finished_walk.last_data_received = @last_point_at_moment.timer
+          @finished_walk.save!
+        end
+
+        @state = 1
+      else
+        @location_gran_canaria = Location.create(latitude: 28.1235459, longitude: 15.4362574)
+        #cargar el mapa un un lugar en concreto
+        @last_point = @location_gran_canaria
+        @points_locations = []
+        
+        @state = 1
+      end
+    end
+
+    unless (@last_point.blank? || @last_point.is_a?(ActiveRecord::Base))
+      @last_point_at_moment = get_last_point_at_moment(@last_point)
+    end
+
+    @hash = Gmaps4rails.build_markers(@last_point_at_moment) do |location, marker|
+      marker.lat location.latitude  
+      marker.lng location.longitude  
+    end
+
     @walks = Walk.where(pet_id: @pet_id).order('created_at DESC').page(params[:page]).per(PER_PAGE)
-    #@track_id = Track.where(walk_id: @walks.last.id)    
-    @locations_track = Location.where(track_id: 12)
-    @array = [[-15.4912661389, 28.1188646983],
-         [-15.4508335143, 28.1300607417],
-         [-15.5475988146, 28.0596369971],
-         [-15.5475665443, 28.0595917348],
-         [-15.5474957172, 28.0597048905],
-         [-15.5474359542, 28.0598180462],
-         [-15.5473939609, 28.0598720256],
-         [-15.5473659653, 28.0598909687],
-         [-15.5471209623, 28.0600389931],
-         [-15.5469219759, 28.060196992],
-         [-15.546783004, 28.0602949765],
-         [-15.546606984, 28.0604340322],
-         [-15.5465290323, 28.0606920272],
-         [-15.5464609712, 28.060882967],
-         [-15.5464550201, 28.0608900078],
-         [-15.5464909784, 28.0609569792],
-         [-15.546487039, 28.0609989725],
-         [-15.5464420281, 28.0610429775],
-         [-15.5464359932, 28.0610620044],
-         [-15.5464499909, 28.0611400399]]
-    @hash = Gmaps4rails.build_markers(@locations_track) do |location, marker|
-      marker.lat -15.5464499909  #location.latitude   # 43.124228
-      marker.lng 28.0611400399  #location.longitude  # 5.928
+    #@actual_walk = @finished_walk.present? ? @finished_walk : @walk_in_process
+binding.pry
+    respond_to do |format| 
+      format.html       
+      format.json { render json: { :points_locations => @points_locations, :state => @state, walks: @walks } }
     end
   end
 
   def new_route
     @pet_id = params[:pet_id].to_i
-    num_walk = Walk.where(pet_id: @pet_id).count + 1
-
+    
+    name_last_walk = Walk.where(pet_id: @pet_id).last
+    if name_last_walk.nil? 
+      num_walk = "0"
+    else
+      name_last_walk = name_last_walk.name
+      num_walk = name_last_walk.partition('_').last unless name_last_walk.nil?
+    end
+    num_walk = num_walk.to_i + 1
+    name_route = "Ruta_" + "#{num_walk}"
+    
     @walk = Walk.create
     @walk.pet_id = @pet_id
-    @walk.walker = current_user
-    @walk.name = "Ruta_" + "#{num_walk}"
+    @walk.walker = current_user.name
+    @walk.name = name_route 
+    @walk.state = "in_progress"
     @walk.save!
+    
+    prng = Random.new
+    num_file = prng.rand(10)
+    @file = Nokogiri::XML(File.open("extra/kml_files/doc1-1.kml"))#Nokogiri::XML(File.open("extra/kml_files/doc1-#{num_file}.kml"))
+    
+    @track = Track.create
+    @track.file_name = "doc1-1"#"doc1-#{num_file}"
+    @track.walk_id = @walk.id
+    @track.save!
 
-    @file = Nokogiri::XML(File.open("extra/kml_files/doc1.kml"))
-    @track.file_name = "doc1.kml"
+    first_time = 0
+    
     @file.css('coordinates').each do |coordinates|
       coordinates.text.split(' ').each do |coordinate|
         (lat, lon, elevation) = coordinate.split(',')
         @location = Location.create
-        @location.track_id = @track.id
+        @location.track_id = @track.id     
         @location.latitude = lat
         @location.longitude = lon
+        if first_time == 0
+          @time_without_seconds = Time.now
+          @location.timer = @time_without_seconds
+          @time_plus_seconds = @time_without_seconds
+          first_time = 1
+        else
+          @time_plus_seconds = @time_plus_seconds + 5.seconds
+          @location.timer = @time_plus_seconds
+        end
         @location.save!
+        puts "#{lat},#{lon}\n"
       end
     end
-    
-    @locations_track = Location.where(track_id: @track.id)
 
     redirect_to pet_routes_path(@pet_id)
   end
 
+  def show_route
+    @pet_id = params[:pet_id].to_i
+    @walks = Walk.where(pet_id: @pet_id).order('created_at DESC').page(params[:page]).per(PER_PAGE)
+
+    @actual_time = Time.now.strftime('%H:%M:%S')
+
+    walk_id = params[:walk_id].to_i
+    @walk = Walk.find(walk_id)
+    @walk_name = @walk.name
+
+    @points_locations = get_locations_finalized(@walk, @actual_time, 1)
+    @last_point = @points_locations.last if @points_locations.present?
+
+    unless (@last_point.blank? || @last_point.is_a?(ActiveRecord::Base))
+      @last_point_at_moment = get_last_point_at_moment(@last_point)
+    end
+
+    @hash = Gmaps4rails.build_markers(@last_point_at_moment) do |location, marker|
+      marker.lat location.latitude  
+      marker.lng location.longitude  
+    end
+
+    @state = 1
+  end
+
   private
+    def get_last_point_track(walk_in_process, state)
+      @track_id = get_track_id(walk_in_process, state)
+      @last_point_track = Location.where(track_id: @track_id).last
+      @coordinates = []
+      @coordinates << @last_point_track.latitude 
+      return @coordinates << @last_point_track.longitude
+    end
+
+    def get_last_point_at_moment(last_point)
+      last_point_latitude = last_point[0]
+      last_point_longitude = last_point[1]
+      return @last_point_at_moment = Location.where("latitude = #{last_point_latitude} AND longitude = #{last_point_longitude}").last
+    end
+
+    def get_locations_track(walk_in_process, state)
+      @track_id = get_track_id(walk_in_process, state)
+
+      return @locations_track = Location.where(track_id: @track_id)
+    end
+
+    def get_track_id(walk_in_process, state)
+      walk_id = state == 0 ? walk_in_process[0].id : walk_in_process.id
+      track_in_process = Track.where(walk_id: walk_id)
+      return @track_id = track_in_process.to_a[0].id
+    end
+
+    def get_locations_in_process(walk_in_process, actual_time, state)
+      @locations_track = get_locations_track(walk_in_process, state)
+      @points_locations = []
+      
+      @locations_track.each do |location_track|
+        converted_timer = location_track.timer.strftime('%H:%M:%S')
+        if ((state == 0) && (converted_timer <= actual_time) && (location_track.timer.to_date <= Time.now.to_date))
+          @points_locations << [location_track.latitude, location_track.longitude] 
+        else
+          break
+        end
+      end
+
+      return @points_locations
+    end
+
+    def get_locations_finalized(finished_walk, actual_time, state)
+      @locations_track = get_locations_track(finished_walk, state)
+      @points_locations = []
+      
+      @locations_track.each do |location_track|
+        converted_timer = location_track.timer.strftime('%H:%M:%S')
+        if ((state == 1) && (converted_timer <= actual_time)) || (location_track.timer.to_date <= Time.now.to_date)
+          @points_locations << [location_track.latitude, location_track.longitude] 
+        else
+          break
+        end
+      end
+
+      return @points_locations
+    end
+
     def pet_params
       params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment, :race, :avatar)
     end
