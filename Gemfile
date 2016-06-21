@@ -10,10 +10,6 @@ gem 'rails', '4.2.1'
 # Use prostgresql
 gem 'pg', '~> 0.18.2'
 
-# Delayed_job
-gem 'delayed_job_active_record'
-gem "delayed_job_web"
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
