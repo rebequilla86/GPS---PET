@@ -12,5 +12,5 @@
 class Track < ActiveRecord::Base
 	# Associations
   belongs_to :walk, inverse_of: :tracks
-  has_many :locations, inverse_of: :tracks, dependent: :destroy
+  has_many :locations, inverse_of: :track, dependent: :destroy
 end
