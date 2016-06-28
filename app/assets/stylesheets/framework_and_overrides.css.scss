@@ -15,17 +15,17 @@ img {
   float: right;
   margin: 0;
 }
-.navbar-inverse {
-  background-color: #008000;
-  border-color: #008000;
-  .navbar-nav {
-    li {
-      a {
-        color: #FFD700;
-      }
-    }
-  }
-}
+//.navbar-inverse {
+//  background-color: #008000;
+//  border-color: #008000;
+//  .navbar-nav {
+//    li {
+//      a {
+//        color: #FFD700;
+//      }
+//    }
+//  }
+//}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -51,7 +51,7 @@ img {
 // to make views framework-neutral
 main {
   @extend .container;
-  background-color: #ADFF2F; 
+  background-color: #eee;//#ADFF2F; 
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
