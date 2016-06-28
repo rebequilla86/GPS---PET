@@ -45,11 +45,10 @@ class UsersController < ApplicationController
     @num_pets = Pet.where(user_id: current_user.id).count
     authorize @users
     @walker = current_user.walker if current_user.walker.present?
-    #@users = @users.order(sort_column + " " + sort_direction)
   end
 
   def hire_walker
-    if current_user.walker.present? && (params[:hire].include?"Contratar")
+    if (params[:button].include?"Contratar") && (current_user.walker == params[:walker].to_i)
       flash[:notice] = "Ya tiene contratado un paseador."
       @walker = current_user.walker if current_user.walker.present?
     else
@@ -77,7 +76,6 @@ class UsersController < ApplicationController
     end
     @users = User.walker.order('name ASC').reorder('last_name DESC').page(params[:page]).per(PER_PAGE)
     authorize @users
-    #@users = @users.order(sort_column + " " + sort_direction)
     redirect_to walker_users_path
   end
 
