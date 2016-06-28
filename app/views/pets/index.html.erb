@@ -47,19 +47,23 @@
         <th><%= t 'activerecord.attributes.pet.race' %></th>
         <th><%= t 'activerecord.attributes.pet.born_date' %></th>
         <th><%= t 'activerecord.attributes.pet.comment' %></th>
+        <th><%= t 'activerecord.attributes.pet.owner' %></th>
         <th colspan="1"></th>
       </tr>
 
       <% @pets.each do |pet| %>
-          <tr>
-            <td><%= image_tag pet.avatar.thumb.url %></td>
-            <td><%= pet.name %></td>
-            <td><%= pet.num_chip %></td>
-            <td><%= pet.race %></td> 
-            <td><%= pet.born_date.to_date.strftime("%d/%m/%Y") %></td>
-            <td><%= pet.comment %></td>
-            <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_routes_path(pet) %></td>
-          </tr>
+        <tr>
+          <td><%= image_tag pet.avatar.thumb.url %></td>
+          <td><%= pet.name %></td>
+          <td><%= pet.num_chip %></td>
+          <td><%= pet.race %></td> 
+          <td><%= pet.born_date.to_date.strftime("%d/%m/%Y") %></td>
+          <td><%= pet.comment %></td>
+          <% id_owner = Pet.find(pet.id).user_id
+          name_owner = User.find(id_owner).name %>
+          <td><%= name_owner %></td>
+          <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_routes_path(pet) %></td>
+        </tr>
        <% end unless @pets.nil? %>
     </table>
     <% unless @pets.nil? %>

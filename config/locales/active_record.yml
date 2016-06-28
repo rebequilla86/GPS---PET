@@ -20,6 +20,7 @@ es:
         new: Añadir a
         new_pet: Nuevo perro
         num_chip: Número de chip
+        owner: Propietario
         race: Raza
         remove_avatar: Borrar avatar
         routes: Rutas
