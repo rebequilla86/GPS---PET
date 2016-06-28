@@ -60,6 +60,7 @@ class WalksController < ApplicationController
   def destroy
     @walk = Walk.find(params[:id])
     @walk.destroy
+    @walk.save!
     respond_to do |format|
       format.html { redirect_to pet_routes_path(@walk.pet_id), notice: 'Se ha borrado la ruta satisfactoriamente.' }
     end
