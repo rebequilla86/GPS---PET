@@ -1,19 +1,18 @@
 # == Schema Information
 #
-# Table name: routes
+# Table name: tracks
 #
 #  id         :integer          not null, primary key
 #  file_name  :string
+#  walk_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  walk_id    :integer
 #
 
 FactoryGirl.define do
-  factory :route do
-    gps_id 1
-latitude 1.5
-longitude 1.5
+  factory :track do
+    file_name "MyString"
+walk_id 1
   end
 
 end

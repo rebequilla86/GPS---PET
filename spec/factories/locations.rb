@@ -1,19 +1,21 @@
 # == Schema Information
 #
-# Table name: routes
+# Table name: locations
 #
 #  id         :integer          not null, primary key
-#  file_name  :string
+#  latitude   :float
+#  longitude  :float
+#  track_id   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  walk_id    :integer
+#  timer      :datetime
 #
 
 FactoryGirl.define do
-  factory :route do
-    gps_id 1
-latitude 1.5
-longitude 1.5
+  factory :location do
+    latitude "9.99"
+longitude "9.99"
+route_id 1
   end
 
 end

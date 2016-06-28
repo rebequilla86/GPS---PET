@@ -1,19 +1,16 @@
 # == Schema Information
 #
-# Table name: routes
+# Table name: tracks
 #
 #  id         :integer          not null, primary key
 #  file_name  :string
+#  walk_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  walk_id    :integer
 #
 
-FactoryGirl.define do
-  factory :route do
-    gps_id 1
-latitude 1.5
-longitude 1.5
-  end
+require 'rails_helper'
 
+RSpec.describe Track, :type => :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

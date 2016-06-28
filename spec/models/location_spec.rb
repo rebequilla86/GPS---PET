@@ -1,16 +1,18 @@
 # == Schema Information
 #
-# Table name: routes
+# Table name: locations
 #
 #  id         :integer          not null, primary key
-#  file_name  :string
+#  latitude   :float
+#  longitude  :float
+#  track_id   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  walk_id    :integer
+#  timer      :datetime
 #
 
 require 'rails_helper'
 
-RSpec.describe Route, :type => :model do
+RSpec.describe Location, :type => :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end
