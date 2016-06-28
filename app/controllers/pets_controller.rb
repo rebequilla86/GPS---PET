@@ -101,7 +101,7 @@ class PetsController < ApplicationController
       end
     end
 
-    @last_point_at_moment = get_last_point_at_moment(@last_point)
+    @last_point_at_moment = get_last_point_at_moment(@last_point) unless @last_point.nil?
 
     @hash_map = Gmaps4rails.build_markers(@last_point_at_moment) do |location, marker|
       marker.lat location.latitude  
@@ -209,6 +209,14 @@ class PetsController < ApplicationController
     @hash_map = Gmaps4rails.build_markers(@last_point_at_moment) do |location, marker|
       marker.lat location.latitude  
       marker.lng location.longitude  
+    end
+
+    if current_user.is_walker.nil?
+      @walker_current_user = User.where(walker: current_user.walker)
+      @pet_current_user = Pet.where(user_id: current_user.walker).map(&:id)
+    else
+      @walker_current_user = User.where(walker: current_user.id)
+      @pet_current_user = Pet.where(user_id: current_user.hired).map(&:id)
     end
 
     @state = 1
