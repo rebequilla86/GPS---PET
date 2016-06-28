@@ -16,6 +16,4 @@ Rails.application.routes.draw do
   	get 'walker', :on => :collection
   	post 'hire_walker', :on => :collection
   end
-
-  #mount Resque::Server.new, at: "/resque"
 end
