@@ -21,8 +21,8 @@
             <td><%= walk.name %></td>
           <% end %>
           <td><%= walk.created_at.strftime("%d/%m/%y %H:%M:%S") %></td>
-          <td class="duration"><%= walk.duration.strftime("%H:%M:%S") %></td>
-          <td class="data_received"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") if !walk.last_data_received.nil? %></td>
+          <td class="duration"><%= walk.duration.strftime("%H:%M:%S") unless walk.duration.nil? %></td>
+          <td class="data_received"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") unless walk.last_data_received.nil? %></td>
           <td class="state"><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
           <% name_walker = User.find(walk.walker).name %>
           <td><%= name_walker %></td>
