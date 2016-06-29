@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   def hire_walker
     @id_walker = params[:button].partition('-').last.to_i     
     if (params[:button].include?"Contratar") && (!@id_walker.nil?) && (!current_user.walker.nil?) && (current_user.walker != @id_walker) 
-      flash[:notice] = "Ya tiene contratado un paseador."
+      flash[:notice] = "Ya tiene contratado un paseador. Para contratar a otro tiene que dejar los servicios del paseador actual."
       @walker = current_user.walker if current_user.walker.present?
     else
       if (params[:button].include?"Contratar") && (current_user.walker.nil?)

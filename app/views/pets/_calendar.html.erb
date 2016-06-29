@@ -1,7 +1,5 @@
-
-
 <script>
-  window.onload = function(){
+  var do_on_load = function(){
 
 		$.datepicker.regional['es'] = {
 			closeText: 'Cerrar',
@@ -38,4 +36,7 @@
   	});
 
 	};
+
+	$(document).ready(do_on_load)
+	$(window).bind('page:change', do_on_load)
 </script>

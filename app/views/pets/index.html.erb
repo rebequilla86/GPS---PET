@@ -51,7 +51,7 @@
         <th colspan="1"></th>
       </tr>
 
-      <% @pets.each do |pet| %>
+      <% @walkered_pets.each do |pet| %>
         <tr>
           <td><%= image_tag pet.avatar.thumb.url %></td>
           <td><%= pet.name %></td>
@@ -64,10 +64,10 @@
           <td><%= name_owner %></td>
           <td><%= link_to (t 'activerecord.attributes.pet.routes'), pet_routes_path(pet) %></td>
         </tr>
-       <% end unless @pets.nil? %>
+       <% end unless @walkered_pets.nil? %>
     </table>
-    <% unless @pets.nil? %>
-      <div style="text-align: center;"><%= paginate @pets, :theme => 'twitter-bootstrap-3' %></div>
-    <% end %>
+    <%# unless @walkered_pets.nil? %>
+      <!--<div style="text-align: center;"><%#= paginate @walkered_pets, :theme => 'twitter-bootstrap-3' %></div>-->
+    <%# end %>
   </div>
 <% end %>
