@@ -5,9 +5,17 @@ class PetsController < ApplicationController
     @own_pets = Pet.where(user_id: current_user.id).order('name ASC').page(params[:page]).per(PER_PAGE)
 
     @onwer_hire_walker = User.where(walker: current_user.id)
-    @onwer_hire_walker.each do |owner| 
-      @pets = Pet.where(user_id: owner.id).order('name ASC').page(params[:page]).per(PER_PAGE)
-    end
+    #if @onwer_hire_walker.present?
+      @walkered_pets = []
+      @onwer_hire_walker.each do |owner| 
+        pets = Pet.where(user_id: owner.id).order('name ASC').page(params[:page]).per(PER_PAGE)
+        pets.each do |pet|
+          @walkered_pets << pet
+        end
+      end
+    #else
+    #  my_walks = Walk.where(walker: current_user.id)
+    #end
   end
 
   def show
@@ -96,7 +104,7 @@ class PetsController < ApplicationController
         @location_gran_canaria = Location.create(latitude: 28.127222, longitude: -15.431389)
         @last_point = @location_gran_canaria
         @points_locations = [[@last_point.latitude, @last_point.longitude]]
-        
+
         @state = 1
       end
     end
@@ -107,6 +115,12 @@ class PetsController < ApplicationController
       marker.lat location.latitude  
       marker.lng location.longitude  
     end
+
+    # @hash_map_last_point = Hash.new
+    # @hash_map_last_point[:lat] = @last_point_at_moment[0]
+    # @hash_map_last_point[:lng] = @last_point_at_moment[1]
+    # @hash_last_point = []
+    # @hash_last_point << @hash_map_last_point
 
     unless @walk_in_process[0].nil?
       @walk_id = @finished_walk.present? ? @finished_walk.id : @walk_in_process[0].id
@@ -130,7 +144,7 @@ class PetsController < ApplicationController
     @walks = Walk.where(pet_id: @pet_id).order('created_at DESC').page(params[:page]).per(PER_PAGE)
     respond_to do |format| 
       format.html       
-      format.json { render json: { points_locations: @points_locations, state: @state, hash_map: @hash_map, walk_id: @walk_id, walks: @walks, pet_id: @pet_id, pet_current_user: @pet_current_user } }
+      format.json { render json: { points_locations: @points_locations, state: @state, walk_id: @walk_id, walks: @walks, pet_id: @pet_id, pet_current_user: @pet_current_user } }
     end
   end
 
@@ -149,11 +163,25 @@ class PetsController < ApplicationController
     
     @walk = Walk.create
     @walk.pet_id = @pet_id
-    @walk.walker = current_user.name
+    @walk.walker = current_user.id
     @walk.name = name_route 
     @walk.state = "in_progress"
     @walk.save!
     
+    # pets = Pet.where(user_id: @pet_id.user_id)
+    # pets = pets.map(&:id)
+    # pets.each do |pet|
+    #   walks = Walk.where(pet_id: pet.id)
+    #   if walks[0].state == "in_progress"
+    #     track_another_pet = Track.where(walk_id: walks[0].id)
+    #     @track = Track.create
+    #     @track.file_name = track_another_pet[0].file_name
+    #     @track.walk_id = @walk.id
+    #     @track.save!
+    #     break
+    #   end
+    # end
+
     prng = Random.new
     num_file = prng.rand(10)
     @file = Nokogiri::XML(File.open("extra/kml_files/doc1-#{num_file}.kml"))
