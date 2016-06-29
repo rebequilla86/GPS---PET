@@ -5,6 +5,7 @@ es:
     navigation_links: 
       dogs: Perros
       edit_account: Perfil
+      my_walks: Mis paseos
       sign_in: Entra
       sign_out: Salir
       sign_up: Regístrate

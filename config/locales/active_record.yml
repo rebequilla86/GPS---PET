@@ -55,11 +55,14 @@ es:
         delete: Borrar
         duration: Duración
         name: Nombre ruta
+        name_owner: Propietario
+        name_pet: Perro
         last_data_received: Último dato recibido
         list: Listado de rutas
         new_route: Nuevo ruta
         see: Ver
         state: Estado
+        walks_list: Listado de paseos
         walker: Paseador
     errors:
       messages:

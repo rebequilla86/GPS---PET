@@ -7,6 +7,9 @@
     <li><%= link_to t('layouts.navigation_links.dogs'), pets_path %></li>
   	<li><%= link_to t('layouts.navigation_links.walkers'), walker_users_path %></li>
   <% end %>
+  <% if current_user.walker? %>
+    <li><%= link_to t('layouts.navigation_links.my_walks'), walks_path %></li>
+  <% end %>
   <li><%= link_to current_user.name, edit_user_registration_path %></li>
   <li><%= link_to t('layouts.navigation_links.sign_out'), destroy_user_session_path, :method=>'delete' %></li>
 <% else %>

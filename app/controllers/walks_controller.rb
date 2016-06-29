@@ -4,11 +4,8 @@ class WalksController < ApplicationController
   # GET /walk
   # GET /walk.json
   def index
-    @walks = Walk.all
-    @hash = Gmaps4rails.build_markers(@walks) do |walk, marker|
-      marker.lat 43.124228 #walk.latitude
-      marker.lng 5.928 # walk.longitude
-    end
+    #@walks = Walk.all
+    @my_walks = Walk.where(walker: current_user.id).order('id DESC')
   end
 
   # GET /walk/1
