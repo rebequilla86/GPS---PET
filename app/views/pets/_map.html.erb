@@ -101,7 +101,6 @@ $(document).ready(function () {
       dataType: "json",
       url: '/pets/<%= @pet_id %>/routes',
       success: function(data) {
-        console.log(data);
         update_table(data.walks[0]);
         print_map(data.points_locations);
         if (data.state == 1) {
