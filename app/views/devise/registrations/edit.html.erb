@@ -36,7 +36,13 @@
       <% end %>
     </div>
 
-    <% unless current_user.admin? %>
+    <% unless current_user.admin? && current_user.walker.present? %>
+      <div class="form-group" style="font-weight: bold;">
+        <% id_walker = current_user.walker 
+        name_walker = User.find(id_walker).name %>
+        <%= "Paseador: #{name_walker}" %>
+      </div>
+
       <div class="form-group">
         <%= f.label :is_walker %>
         <%= f.check_box :is_walker, id: 'is_walker' %>
