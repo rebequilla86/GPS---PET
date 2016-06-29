@@ -25,7 +25,7 @@ class Pet < ActiveRecord::Base
 
   # validations
   validates :name, :born_date, presence: true
-  validates :num_chip, presence: true, length: { is: 15 }, uniqueness: true
+  validates :num_chip, presence: true, uniqueness: true
   validates_processing_of :avatar
   validate :avatar_size_validation
 
