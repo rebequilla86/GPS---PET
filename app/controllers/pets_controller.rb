@@ -254,8 +254,18 @@ class PetsController < ApplicationController
   private
     def update_walk_in_process(walk_in_process, state, account_points_locations, last_point, coordinates, last_point_at_moment)
       @track_id = get_track_id(walk_in_process, state)
+      duration_walk = Time.at(account_points_locations * 5).utc.strftime("%H:%M:%S")
+      Rails.logger.info "***********************"
+      Rails.logger.info duration_walk
+      Rails.logger.info walk_in_process
+      Rails.logger.info state
+      Rails.logger.info account_points_locations
+      Rails.logger.info last_point
+      Rails.logger.info coordinates
+      Rails.logger.info last_point_at_moment
+      Rails.logger.info "***********************"
       @walk_in_process[0].last_data_received = last_point_at_moment.timer
-      @walk_in_process[0].duration = Time.at(account_points_locations * 5).utc.strftime("%H:%M:%S")
+      @walk_in_process[0].duration = duration_walk
       @walk_in_process[0].state = (last_point - coordinates == []) ? 1 : 0
       @walk_in_process[0].save!
     end
