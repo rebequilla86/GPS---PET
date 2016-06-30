@@ -81,7 +81,7 @@ class PetsController < ApplicationController
       puts @account_points_locations
       puts "++++++++++++++++++++"
       @coordinates = get_last_point_track(@walk_in_process, @state)
-
+binding.pry
       puts "++++++++++++++++++++"
       puts "antes last point"
       puts "++++++++++++++++++++"
@@ -278,6 +278,7 @@ class PetsController < ApplicationController
       @walk_in_process[0].last_data_received = last_point_at_moment.timer
       @walk_in_process[0].duration = duration_walk
       @walk_in_process[0].state = (last_point - coordinates == []) ? 1 : 0
+      binding.pry
       @walk_in_process[0].save!
     end
 

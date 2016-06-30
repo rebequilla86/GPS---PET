@@ -82,8 +82,6 @@ group :development, :test do
 
   gem 'quiet_assets'
 
-  gem 'pry-rails'
-
   # populate database
   gem 'factory_girl_rails', require: false
   gem 'faker'
@@ -91,9 +89,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
 end
 
-#group :production do
   gem 'pry'
-#end
+  gem 'pry-rails'
 
 # Detail log
 gem 'rails_12factor', group: :production
