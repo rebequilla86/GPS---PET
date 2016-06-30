@@ -77,8 +77,14 @@ class PetsController < ApplicationController
 
       @coordinates = get_last_point_track(@walk_in_process, @state)
 
+      puts "++++++++++++++++++++"
+      puts "antes last point"
+      puts "++++++++++++++++++++"
       unless @last_point.nil?
         @last_point_at_moment = get_last_point_at_moment(@last_point) 
+              puts "++++++++++++++++++++"
+      puts "despues last point"
+      puts "++++++++++++++++++++"
         update_walk_in_process(@walk_in_process, @state, @account_points_locations, @last_point, @coordinates, @last_point_at_moment)
       end
 
@@ -255,15 +261,15 @@ class PetsController < ApplicationController
     def update_walk_in_process(walk_in_process, state, account_points_locations, last_point, coordinates, last_point_at_moment)
       @track_id = get_track_id(walk_in_process, state)
       duration_walk = Time.at(account_points_locations * 5).utc.strftime("%H:%M:%S")
-      Rails.logger.info "***********************"
-      Rails.logger.info duration_walk
-      Rails.logger.info walk_in_process
-      Rails.logger.info state
-      Rails.logger.info account_points_locations
-      Rails.logger.info last_point
-      Rails.logger.info coordinates
-      Rails.logger.info last_point_at_moment
-      Rails.logger.info "***********************"
+      puts "***********************"
+      puts duration_walk
+      puts walk_in_process
+      puts state
+      puts account_points_locations
+      puts last_point
+      puts coordinates
+      puts last_point_at_moment
+      puts "***********************"
       @walk_in_process[0].last_data_received = last_point_at_moment.timer
       @walk_in_process[0].duration = duration_walk
       @walk_in_process[0].state = (last_point - coordinates == []) ? 1 : 0
