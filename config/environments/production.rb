@@ -76,4 +76,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  silence_warnings do
+    begin
+      require 'pry'
+      IRB = Pry
+      rescue LoadError
+    end
+  end
 end

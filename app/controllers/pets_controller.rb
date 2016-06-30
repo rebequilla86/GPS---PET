@@ -72,9 +72,14 @@ class PetsController < ApplicationController
     if @walk_in_process.present? 
       @state = 0
       @points_locations = get_locations_in_process(@walk_in_process, @actual_time, @state)
+
       @account_points_locations = @points_locations.count
       @last_point = @points_locations.last if @points_locations.present?
-
+      puts "++++++++++++++++++++"
+      puts @last_point
+      puts @points_locations
+      puts @account_points_locations
+      puts "++++++++++++++++++++"
       @coordinates = get_last_point_track(@walk_in_process, @state)
 
       puts "++++++++++++++++++++"

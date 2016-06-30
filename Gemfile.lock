@@ -242,6 +242,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   pg (~> 0.18.2)
+  pry
   pry-rails
   pundit
   quiet_assets

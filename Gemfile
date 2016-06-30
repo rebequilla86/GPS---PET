@@ -91,5 +91,9 @@ group :development, :test do
   gem 'spring-commands-rspec'
 end
 
+#group :production do
+  gem 'pry'
+#end
+
 # Detail log
 gem 'rails_12factor', group: :production
