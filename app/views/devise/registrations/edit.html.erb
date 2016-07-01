@@ -36,11 +36,13 @@
       <% end %>
     </div>
 
-    <% unless current_user.admin? && current_user.walker.present? %>
+    <% unless current_user.admin? %>
       <div class="form-group" style="font-weight: bold;">
         <% id_walker = current_user.walker 
-        name_walker = User.find(id_walker).name %>
-        <%= "Paseador: #{name_walker}" %>
+        unless current_user.walker.nil? 
+          name_walker = User.find(id_walker).name %>
+          <%= "Paseador: #{name_walker}" %>
+        <% end %>  
       </div>
 
       <div class="form-group">
