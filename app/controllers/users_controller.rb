@@ -54,7 +54,7 @@ class UsersController < ApplicationController
       @walker = current_user.walker if current_user.walker.present?
     else
       if (params[:button].include?"Contratar") && (current_user.walker.nil?)
-        @hired = "Dejar servicios"
+        @hired = "Liberar"
         
         current_user.walker = @id_walker
         current_user.save!
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         hired_walker.save!
         flash[:notice] = "Ha contratado a " + hired_walker.name
       else
-        if (params[:button].include?"Dejar servicios") && (current_user.walker.present?)
+        if (params[:button].include?"Liberar") && (current_user.walker.present?)
           @hired = "Contratar"
           hired_walker = User.find(current_user.walker)
           hired_walker.hired = nil

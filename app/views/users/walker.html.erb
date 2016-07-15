@@ -15,7 +15,7 @@
 		  </tr>
 
 	  	<% @users.each do |user| %>
-				<% @hired = (current_user.walker.present? && current_user.walker == user.id) ? "Dejar servicios" : "Contratar" %>
+				<% @hired = (current_user.walker.present? && current_user.walker == user.id) ? "Liberar" : "Contratar" %>
 		    <tr>
 		      <td><%= image_tag avatar_url(user, 25) %></td>
 		      <td><%= user.name %></td>
