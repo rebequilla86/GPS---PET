@@ -54,6 +54,8 @@ class WalksController < ApplicationController
       end
     end
 
+    @last_point_at_moment = get_last_point_at_moment(@last_point) unless @last_point.nil?
+
     @hash_map = Gmaps4rails.build_markers(@last_point_at_moment) do |location, marker|
       marker.lat location.latitude  
       marker.lng location.longitude  
