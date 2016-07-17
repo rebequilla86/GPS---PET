@@ -1,37 +1,7 @@
-<%= content_tag "div", class: "container" do %>
-  <h2><%= t 'activerecord.attributes.walk.walks_list' %></h2>
-
-  <table class="table">
-    <tr>
-    	<th><%= t 'activerecord.attributes.walk.name_owner' %></th>
-    	<th><%= t 'activerecord.attributes.walk.name_pet' %></th>
-      <th><%= t 'activerecord.attributes.walk.name' %></th>
-      <th><%= t 'activerecord.attributes.walk.created_at' %></th>
-      <th><%= t 'activerecord.attributes.walk.duration' %></th>
-      <th><%= t 'activerecord.attributes.walk.last_data_received' %></th>
-      <th><%= t 'activerecord.attributes.walk.state' %></th>
-    </tr>
-
-    <% unless @my_walks.nil? %>
-      <% @my_walks.each do |walk| %>
-        <tr id="walk-<%= walk.id %>">
-        	<% name_owner = Pet.find(walk.pet_id).user_id 
-        	name_owner = User.find(name_owner).name %>
-					<td><%= name_owner %></td>
-					<% name_pet = Pet.find(walk.pet_id).name %>
-        	<td><%= name_pet %></td>
-          <%# if @state == 1 && walk.state == 'finalized' %> 
-            <!--<td><%#= link_to walk.name, {:controller => "pets", :action => "show_route", :walk_id => walk.id, :pet_id => @pet_id } %></td>-->
-          <%# else %>
-            <td><%= walk.name %></td>
-          <%# end %>
-          <td><%= walk.created_at.strftime("%d/%m/%y %H:%M:%S") %></td>
-          <td class="duration"><%= walk.duration.strftime("%H:%M:%S") %></td>
-          <td class="data_received"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") if !walk.last_data_received.nil? %></td>
-          <td class="state"><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </table>
-  <!--<div style="text-align: center;"><%#= paginate @walks, :theme => 'twitter-bootstrap-3' %></div> -->
+<% if request.url.include?"pet_id" %>
+  <div><h3 style="text-align: center;">Estás viendo la <%= @walk_name %> de <%= @pet_name %></h3></div>
+<% else %>
+  <div><h3 style="text-align: center;">Estás viendo la última ruta realizada: <%= @walk_name %> </h3></div>
 <% end %>
+<%= render 'map' %>
+<%= render 'list_walks' %>
