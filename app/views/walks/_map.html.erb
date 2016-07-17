@@ -1,0 +1,122 @@
+<div>
+  <% @walk_id = 0 if @walk_id == [] %>
+  <div id="map_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 330px; display:inline-block;'></div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+  function update_table(data) {
+    var id = data.id;
+    id = id.toString();
+    var walk_id = 'walk-' + id;
+    var duration_walk = '#' + walk_id + ' .duration';
+    var data_received_walk = '#' + walk_id + ' .data_received';
+    var state_walk = '#' + walk_id + ' .state';
+
+    var duration = data.duration.substring(11, 19);
+    $(duration_walk).text(duration);
+
+    var last_data_received = new Date(data.last_data_received).toLocaleString();;
+    $(data_received_walk).text(last_data_received);
+    
+    if (data.state == "in_progress") {
+      var state = 'En progreso';
+    }
+    else {
+      if (data.state == "finalized") {
+        var state = 'Finalizado';
+        $('#button_route').removeClass('hide');
+        $('#button_route').addClass('btn btn-default');
+      }
+    }
+    $(state_walk).text(state);
+  }
+  
+  //function print_map(points_locations, state, hash_map) {
+  function print_map(points_locations) {
+    handler = Gmaps.build('Google');
+    var mapOptions = { mapTypeId: google.maps.MapTypeId.HYBRID };
+    handler.buildMap({ provider: mapOptions, internal: {id: 'map_<%= @walk_id %>'}}, function(){
+      var plan = points_locations;
+      plan.options = {
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        title: 'plan'
+      };
+
+      function addPolyline(polyline) {
+        var transformedPolyline = _.map(polyline, function(coordinates) {
+          return {
+            lat: coordinates[0],
+            lng: coordinates[1]
+          };
+        })
+        handler.addPolyline(transformedPolyline, polyline.options);
+        handler.bounds.extend(transformedPolyline[0]);
+        handler.bounds.extend(polyline[polyline.length - 1]);
+      }
+      addPolyline(plan);
+      
+      if (<%= @state %> == 1) {
+        markers = handler.addMarkers(<%= raw @hash_map.to_json %>);
+        handler.map.centerOn(markers[0]); 
+        handler.bounds.extendWith(markers); 
+
+        handler.getMap().setZoom(15);
+      }
+      // else {
+      //   if (state == 0 || state == 1) {
+      //     markers = handler.addMarkers(hash_map);
+      //   }
+      // }  
+
+      //handler.map.centerOn(markers[0]); 
+      // to set the map zoom
+      if (<%= @state %> != 1) {
+        handler.getMap().setZoom(15); 
+        handler.fitMapToBounds();
+      }
+
+      //handler.bounds.extendWith(markers);
+      //handler.fitMapToBounds();
+    });
+  }
+
+  function refreshData() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: '/walks',
+      success: function(data) {
+        console.log(data);
+        update_table(data.walks[0]);
+        print_map(data.points_locations);
+        if (data.state == 1) {
+          print_map(data.points_locations);//, data.state, data.hash_map);
+          update_table(data.walks[0]);
+          clearInterval(rm);
+        }
+      }
+    })
+  }
+
+  // will call refreshPartial every 5 seconds
+  if (<%= @state %> == 1) {
+  	print_map(<%= @points_locations %>);
+  }
+  else {
+    //if (<%#= @pet_current_user.include?(@pet_id) || @pet_walker.map(&:id).include?(@pet_id)
+ //%>) {
+      refreshData();
+      var rm = setInterval(refreshData, 5000);  
+   // }
+  }
+
+});
+</script>
+
+
