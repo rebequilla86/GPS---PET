@@ -7,41 +7,51 @@ class WalksController < ApplicationController
     @my_walks = Walk.where(walker: current_user.id).order('id DESC')
     @actual_time = Time.now.strftime('%H:%M:%S')
 
-    @walk = params[:walk_id].blank? ? @my_walks.first : Walk.find(params[:walk_id].to_i)
-    @walk_name = @walk.name
-    @pet_name = Pet.find(params[:pet_id].to_i).name unless params[:pet_id].blank?
+    if @my_walks.blank?
+      @walk = []
+      @location_gran_canaria = Location.create(latitude: 28.127222, longitude: -15.431389)
+      @last_point = @location_gran_canaria
+      @points_locations = [[@last_point.latitude, @last_point.longitude]]
 
-    if @walk.state == 'in_progress' 
-      @state = 0
-      @points_locations = get_locations_in_process(@walk, @actual_time, @state)
-
-      @account_points_locations = @points_locations.count
-      @last_point = @points_locations.last if @points_locations.present?
-      @coordinates = get_last_point_track(@walk, @state)
-
-      unless @last_point.nil?
-        @last_point_at_moment = get_last_point_at_moment(@last_point) 
-        update_walk_in_process(@walk, @state, @account_points_locations, @last_point, @coordinates, @last_point_at_moment)
-      end
-
-      @duration = @last_point_track.timer unless @last_point_track.nil?
-      if @duration.to_date == Time.now.to_date
-        if (@duration.strftime('%H:%M:%S') < @actual_time) && (@last_point - @coordinates == [])
-          @walk.state = 1
-          @walk.last_data_received = @last_point_at_moment.timer
-          @walk.duration = Time.at(@account_points_locations * 5).utc.strftime("%H:%M:%S") #@duration.strftime("%H:%M:%S") 
-          @walk.save!
-          @state = 1
-        end 
-      end unless @duration.nil?
-    else
-      @points_locations = get_locations_finalized(@walk, @actual_time, 1)
-      @last_point = @points_locations.last if @points_locations.present?
-
-      unless @last_point.nil?
-        @last_point_at_moment = get_last_point_at_moment(@last_point)
-      end
       @state = 1
+    else
+      @walk = params[:walk_id].blank? ? @my_walks.first : Walk.find(params[:walk_id].to_i)
+      @walk_name = @walk.name
+    
+      @pet_name = Pet.find(params[:pet_id].to_i).name unless params[:pet_id].blank?
+
+      if @walk.state == 'in_progress' 
+        @state = 0
+        @points_locations = get_locations_in_process(@walk, @actual_time, @state)
+
+        @account_points_locations = @points_locations.count
+        @last_point = @points_locations.last if @points_locations.present?
+        @coordinates = get_last_point_track(@walk, @state)
+
+        unless @last_point.nil?
+          @last_point_at_moment = get_last_point_at_moment(@last_point) 
+          update_walk_in_process(@walk, @state, @account_points_locations, @last_point, @coordinates, @last_point_at_moment)
+        end
+
+        @duration = @last_point_track.timer unless @last_point_track.nil?
+        if @duration.to_date == Time.now.to_date
+          if (@duration.strftime('%H:%M:%S') < @actual_time) && (@last_point - @coordinates == [])
+            @walk.state = 1
+            @walk.last_data_received = @last_point_at_moment.timer
+            @walk.duration = Time.at(@account_points_locations * 5).utc.strftime("%H:%M:%S") #@duration.strftime("%H:%M:%S") 
+            @walk.save!
+            @state = 1
+          end 
+        end unless @duration.nil?
+      else
+        @points_locations = get_locations_finalized(@walk, @actual_time, 1)
+        @last_point = @points_locations.last if @points_locations.present?
+
+        unless @last_point.nil?
+          @last_point_at_moment = get_last_point_at_moment(@last_point)
+        end
+        @state = 1
+      end
     end
 
     @hash_map = Gmaps4rails.build_markers(@last_point_at_moment) do |location, marker|

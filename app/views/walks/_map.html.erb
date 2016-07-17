@@ -1,6 +1,6 @@
 <div>
-  <% @walk_id = 0 if @walk_id == [] %>
-  <div id="map_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 330px; display:inline-block;'></div>
+  <% @walk_id = 0 if @walk == [] %>
+  <div id="map_walk_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 330px; display:inline-block;'></div>
 </div>
 
 <script type="text/javascript">
@@ -38,7 +38,7 @@ $(document).ready(function () {
   function print_map(points_locations) {
     handler = Gmaps.build('Google');
     var mapOptions = { mapTypeId: google.maps.MapTypeId.HYBRID };
-    handler.buildMap({ provider: mapOptions, internal: {id: 'map_<%= @walk_id %>'}}, function(){
+    handler.buildMap({ provider: mapOptions, internal: {id: 'map_walk_<%= @walk_id %>'}}, function(){
       var plan = points_locations;
       plan.options = {
         geodesic: true,

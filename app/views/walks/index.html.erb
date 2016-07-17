@@ -1,6 +1,6 @@
 <% if request.url.include?"pet_id" %>
   <div><h3 style="text-align: center;">Estás viendo la <%= @walk_name %> de <%= @pet_name %></h3></div>
-<% else %>
+<% elsif @my_walks.present? %>
   <div><h3 style="text-align: center;">Estás viendo la última ruta realizada: <%= @walk_name %> </h3></div>
 <% end %>
 <%= render 'map' %>
