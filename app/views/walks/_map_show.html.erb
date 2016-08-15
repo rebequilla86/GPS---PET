@@ -12,8 +12,8 @@ $(document).ready(function () {
     var id = data.id;
     id = id.toString();
     var walk_id = 'walk-' + id;
-    var duration_walk = '#' + walk_id + ' .duration-' + walk_id;
-    var data_received_walk = '#' + walk_id + ' .data_received-' + walk_id;
+    var duration_walk = '#' + walk_id + ' .duration-' + id;
+    var data_received_walk = '#' + walk_id + ' .data_received-' + id;
     var state_walk = '#' + walk_id + ' .state';
 
     var duration = data.duration.substring(11, 19);
