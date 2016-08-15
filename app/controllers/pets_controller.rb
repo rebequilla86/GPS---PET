@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  PER_PAGE = 4
+  PER_PAGE = 10
 
   def index
     @own_pets = Pet.where(user_id: current_user.id).order('name ASC').page(params[:page]).per(PER_PAGE)
@@ -65,7 +65,7 @@ class PetsController < ApplicationController
 
   def routes
     @pet_id = params[:pet_id].to_i
-
+    @pet_name = Pet.find(@pet_id).name
     @actual_time = Time.now.strftime('%H:%M:%S')
 
     @walk_in_process = Walk.where("pet_id = #{@pet_id} AND state = 0")
@@ -90,6 +90,11 @@ class PetsController < ApplicationController
           @walk_in_process[0].duration = Time.at(@account_points_locations * 5).utc.strftime("%H:%M:%S") #@duration.strftime("%H:%M:%S") 
           @walk_in_process[0].save!
           @state = 1
+          Rails.logger.info "____________________"
+          Rails.logger.info @walk_in_process[0].state
+          Rails.logger.info @walk_in_process[0].last_data_received
+          Rails.logger.info @walk_in_process[0].duration
+          Rails.logger.info "____________________"
         end 
       end unless @duration.nil?
     else
@@ -143,7 +148,7 @@ class PetsController < ApplicationController
 
     @walks = Walk.where(pet_id: @pet_id).order('created_at DESC').page(params[:page]).per(PER_PAGE)
     respond_to do |format| 
-      format.html       
+      format.html { redirect_to :back }     
       format.json { render json: { points_locations: @points_locations, state: @state, walk_id: @walk_id, walks: @walks, pet_id: @pet_id, pet_current_user: @pet_current_user } }
     end
   end
@@ -200,14 +205,26 @@ class PetsController < ApplicationController
         @location.track_id = @track.id     
         @location.latitude = lat
         @location.longitude = lon
+        Rails.logger.info "-----------------"
+        Rails.logger.info @location
+        Rails.logger.info "-----------------"
         if first_time == 0
           @time_without_seconds = Time.now
           @location.timer = @time_without_seconds
           @time_plus_seconds = @time_without_seconds
           first_time = 1
+          Rails.logger.info "**********************"
+          Rails.logger.info @time_without_seconds
+          Rails.logger.info @location.timer
+          Rails.logger.info @time_plus_seconds
+          Rails.logger.info "**********************"
         else
           @time_plus_seconds = @time_plus_seconds + 5.seconds
           @location.timer = @time_plus_seconds
+          Rails.logger.info "++++++++++++++++++++++"
+          Rails.logger.info @time_plus_seconds
+          Rails.logger.info @location.timer
+          Rails.logger.info "++++++++++++++++++++++"
         end
         @location.save!
         puts "#{lat},#{lon}\n"
@@ -219,12 +236,16 @@ class PetsController < ApplicationController
 
   def show_route
     @pet_id = params[:pet_id].to_i
+    @pet_name = Pet.find(@pet_id).name
     @walks = Walk.where(pet_id: @pet_id).order('created_at DESC').page(params[:page]).per(PER_PAGE)
 
     @actual_time = Time.now.strftime('%H:%M:%S')
 
     @walk_id = params[:walk_id].to_i
     @walk = Walk.find(@walk_id)
+    if @walk.state == 'in_progress'
+      redirect_to pet_routes_path(@pet_id)
+    end
     @walk_name = @walk.name
 
     @points_locations = get_locations_finalized(@walk, @actual_time, 1)

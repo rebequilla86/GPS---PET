@@ -1,16 +1,6 @@
 <div>
-  <% @walk_id = 0 if @walk_id == [] %>
-  <div id="map_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 243px; display:inline-block;'></div>
-
-  <div style="float: right; padding: 163px 135px 1px 1px; ">
-    <% @pets_user = Pet.where(user_id: current_user.id) %>
-    <% @pets_user = @pets_user.map(&:id).include?(@pet_id) %>
-    <!-- Si es el propietario o el estado de la ruta es en progreso se oculta el botón de Iniciar nueva ruta -->
-    <% @actual_walk = Walk.where("pet_id = #{@pet_id} AND @state = 0") %>
-    <% @class_init_route = (@pets_user == true || @actual_walk.present?) ? "hide" : "btn btn-default" %>
-    <% @id_button = @state == 1 ? "" : "button_route" %>
-    <%= button_to "Iniciar nueva ruta", pet_new_route_path, :class => @class_init_route, :id => @id_button, :method => :get %>
-  </div>
+  <% @walk_id = 0 if @walk == [] %>
+  <div id="map_walk_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 330px; display:inline-block;'></div>
 </div>
 
 <script type="text/javascript">
@@ -18,11 +8,12 @@
 $(document).ready(function () {
 
   function update_table(data) {
+    console.log(data);
     var id = data.id;
     id = id.toString();
     var walk_id = 'walk-' + id;
-    var duration_walk = '#' + walk_id + ' .duration';
-    var data_received_walk = '#' + walk_id + ' .data_received';
+    var duration_walk = '#' + walk_id + ' .duration-' + walk_id;
+    var data_received_walk = '#' + walk_id + ' .data_received-' + walk_id;
     var state_walk = '#' + walk_id + ' .state';
 
     var duration = data.duration.substring(11, 19);
@@ -48,7 +39,7 @@ $(document).ready(function () {
   function print_map(points_locations) {
     handler = Gmaps.build('Google');
     var mapOptions = { mapTypeId: google.maps.MapTypeId.HYBRID };
-    handler.buildMap({ provider: mapOptions, internal: {id: 'map_<%= @walk_id %>'}}, function(){
+    handler.buildMap({ provider: mapOptions, internal: {id: 'map_walk_<%= @walk_id %>'}}, function(){
       var plan = points_locations;
       plan.options = {
         geodesic: true,
@@ -100,7 +91,7 @@ $(document).ready(function () {
     $.ajax({
       type: "GET",
       dataType: "json",
-      url: '/pets/<%= @pet_id %>/routes',
+      url: '/walks/<%= @walk_id %>',
       success: function(data) {
         console.log(data);
         update_table(data.walks[0]);

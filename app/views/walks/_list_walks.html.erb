@@ -21,14 +21,10 @@
 					<% name_pet = Pet.find(walk.pet_id).name 
             id_pet = Pet.find(walk.pet_id).id %>
         	<td><%= name_pet %></td>
-          <%# if @state == 1 && walk.state == 'finalized' %> 
-            <td><%= link_to walk.name, {:controller => "walks", :action => "index", :walk_id => walk.id, :pet_id => id_pet } %></td>
-          <%# else %>
-            <!--<td><%#= walk.name %></td>-->
-          <%# end %>
+          <td><%= link_to walk.name, walk_path(walk.id) %></td>
           <td><%= walk.created_at.strftime("%d/%m/%y %H:%M:%S") %></td>
-          <td class="duration"><%= walk.duration.strftime("%H:%M:%S") %></td>
-          <td class="data_received"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") if !walk.last_data_received.nil? %></td>
+          <td class="duration-<%= walk.id %>"><%= walk.duration.strftime("%H:%M:%S") %></td>
+          <td class="data_received-<%= walk.id %>"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") if !walk.last_data_received.nil? %></td>
           <td class="state"><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
         </tr>
       <% end %>
