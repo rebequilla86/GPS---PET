@@ -148,7 +148,7 @@ class PetsController < ApplicationController
 
     @walks = Walk.where(pet_id: @pet_id).order('created_at DESC').page(params[:page]).per(PER_PAGE)
     respond_to do |format| 
-      format.html { redirect_to :back }     
+      format.html
       format.json { render json: { points_locations: @points_locations, state: @state, walk_id: @walk_id, walks: @walks, pet_id: @pet_id, pet_current_user: @pet_current_user } }
     end
   end
