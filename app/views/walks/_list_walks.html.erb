@@ -24,8 +24,8 @@
           <td><%= link_to walk.name, walk_path(walk.id) %></td>
           <td><%= walk.created_at.strftime("%d/%m/%y %H:%M:%S") %></td>
           <td class="duration-<%= walk.id %>"><%= walk.duration.strftime("%H:%M:%S") %></td>
-          <td class="data_received-<%= walk.id %>"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") if !walk.last_data_received.nil? %></td>
-          <td class="state"><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
+          <td class="data_received-<%= walk.id %>"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") %></td>
+          <td class="state-<%= walk.id %>"><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
         </tr>
       <% end %>
     <% end %>

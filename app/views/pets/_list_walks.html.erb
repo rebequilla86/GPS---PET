@@ -1,6 +1,5 @@
 <%= content_tag "div", class: "container" do %>
   <h2><%= t 'activerecord.attributes.walk.list' %></h2>
-
   <table class="table">
     <tr>
       <th><%= t 'activerecord.attributes.walk.name' %></th>
@@ -8,7 +7,9 @@
       <th><%= t 'activerecord.attributes.walk.duration' %></th>
       <th><%= t 'activerecord.attributes.walk.last_data_received' %></th>
       <th><%= t 'activerecord.attributes.walk.state' %></th>
-      <th><%= t 'activerecord.attributes.walk.walker' %></th>
+      <% if current_user.role == 'owner' %>
+        <th><%= t 'activerecord.attributes.walk.walker' %></th>
+      <% end %>
       <th colspan="1"></th>
     </tr>
 
@@ -20,14 +21,18 @@
           <td class="duration"><%= walk.duration.strftime("%H:%M:%S") %></td>
           <td class="data_received"><%= walk.last_data_received.strftime("%d/%m/%y %H:%M:%S") %></td>
           <td class="state"><%= t("activerecord.attributes.pet.#{walk.state}") %></td>
-          <% name_walker = User.find(walk.walker).name %>
-          <td><%= name_walker %></td>
-          <% if walk.state == 'finalized' %>
-            <td><%= link_to (t 'activerecord.attributes.walk.delete'), walk_path(walk), 
-                  method: :delete, 
-                  data: { confirm: (t 'activerecord.attributes.pet.sure') } %></td>
-          <% else %>
-            <td><%= (t 'activerecord.attributes.walk.delete') %></td>
+          <% if current_user.role == 'owner' %>
+            <% name_walker = User.find(walk.walker).name %>
+            <td><%= name_walker %></td>
+          <% end%>
+          <% if current_user.role == 'owner' %>
+            <% if walk.state == 'finalized' %>
+              <td><%= link_to (t 'activerecord.attributes.walk.delete'), walk_path(walk), 
+                    method: :delete, 
+                    data: { confirm: (t 'activerecord.attributes.pet.sure') } %></td>
+            <% else %>    
+              <td><%= (t 'activerecord.attributes.walk.delete') %></td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>

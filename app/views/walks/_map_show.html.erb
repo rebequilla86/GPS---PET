@@ -1,20 +1,17 @@
-<div>
-  <% @walk_id = 0 if @walk == [] %>
-  <div id="map_walk_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 330px; display:inline-block;'></div>
-</div>
+<% @walk_id = 0 if @walk == [] %>
+<div id="map_walk_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 330px; display:inline-block;'></div>
 
 <script type="text/javascript">
 
 $(document).ready(function () {
 
   function update_table(data) {
-    console.log(data);
     var id = data.id;
     id = id.toString();
     var walk_id = 'walk-' + id;
     var duration_walk = '#' + walk_id + ' .duration-' + id;
     var data_received_walk = '#' + walk_id + ' .data_received-' + id;
-    var state_walk = '#' + walk_id + ' .state';
+    var state_walk = '#' + walk_id + ' .state-' + id;
 
     var duration = data.duration.substring(11, 19);
     $(duration_walk).text(duration);
@@ -93,12 +90,11 @@ $(document).ready(function () {
       dataType: "json",
       url: '/walks/<%= @walk_id %>',
       success: function(data) {
-        console.log(data);
-        update_table(data.walks[0]);
+        update_table(data.walk);
         print_map(data.points_locations);
         if (data.state == 1) {
           print_map(data.points_locations);//, data.state, data.hash_map);
-          update_table(data.walks[0]);
+          update_table(data.walk);
           clearInterval(rm);
         }
       }

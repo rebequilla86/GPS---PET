@@ -1,16 +1,14 @@
-<div>
-  <% @walk_id = 0 if @walk_id == [] %>
-  <div id="map_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 243px; display:inline-block;'></div>
+<% @walk_id = 0 if @walk_id == [] %>
+<div id="map_<%= @walk_id %>" style='width: 600px; height: 400px; margin-top: 0.5cm; margin-left: 260px; display:inline-block;'></div>
 
-  <div style="float: right; padding: 163px 135px 1px 1px; ">
-    <% @pets_user = Pet.where(user_id: current_user.id) %>
-    <% @pets_user = @pets_user.map(&:id).include?(@pet_id) %>
-    <!-- Si es el propietario o el estado de la ruta es en progreso se oculta el botón de Iniciar nueva ruta -->
-    <% @actual_walk = Walk.where("pet_id = #{@pet_id} AND @state = 0") %>
-    <% @class_init_route = (@pets_user == true || @actual_walk.present?) ? "hide" : "btn btn-default" %>
-    <% @id_button = @state == 1 ? "" : "button_route" %>
-    <%= button_to "Iniciar nueva ruta", pet_new_route_path, :class => @class_init_route, :id => @id_button, :method => :get %>
-  </div>
+<div style="float: right; padding: 163px 135px 1px 1px; ">
+  <% @pets_user = Pet.where(user_id: current_user.id) %>
+  <% @pets_user = @pets_user.map(&:id).include?(@pet_id) %>
+  <!-- Si es el propietario o el estado de la ruta es en progreso se oculta el botón de Iniciar nueva ruta -->
+  <% @actual_walk = Walk.where("pet_id = #{@pet_id} AND @state = 0") %>
+  <% @class_init_route = (@pets_user == true || @actual_walk.present?) ? "hide" : "btn btn-default" %>
+  <% @id_button = @state == 1 ? "" : "button_route" %>
+  <%= button_to "Iniciar nueva ruta", pet_new_route_path, :class => @class_init_route, :id => @id_button, :method => :get %>
 </div>
 
 <script type="text/javascript">
@@ -102,7 +100,6 @@ $(document).ready(function () {
       dataType: "json",
       url: '/pets/<%= @pet_id %>/routes',
       success: function(data) {
-        console.log(data);
         update_table(data.walks[0]);
         print_map(data.points_locations);
         if (data.state == 1) {

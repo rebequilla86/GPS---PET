@@ -273,80 +273,79 @@ class PetsController < ApplicationController
   end
 
   private
-    def update_walk_in_process(walk_in_process, state, account_points_locations, last_point, coordinates, last_point_at_moment)
-      @track_id = get_track_id(walk_in_process, state)
-      duration_walk = Time.at(account_points_locations * 5).utc.strftime("%H:%M:%S")
-      @walk_in_process[0].last_data_received = last_point_at_moment.timer
-      @walk_in_process[0].duration = duration_walk
-      @walk_in_process[0].state = (last_point - coordinates == []) ? 1 : 0
-      @walk_in_process[0].save!
-    end
+  def update_walk_in_process(walk_in_process, state, account_points_locations, last_point, coordinates, last_point_at_moment)
+    @track_id = get_track_id(walk_in_process, state)
+    duration_walk = Time.at(account_points_locations * 5).utc.strftime("%H:%M:%S")
+    @walk_in_process[0].last_data_received = last_point_at_moment.timer
+    @walk_in_process[0].duration = duration_walk
+    @walk_in_process[0].state = (last_point - coordinates == []) ? 1 : 0
+    @walk_in_process[0].save!
+  end
 
-    def get_last_point_track(walk_in_process, state)
-      @track_id = get_track_id(walk_in_process, state)
-      @last_point_track = Location.where(track_id: @track_id).last
-      @coordinates = []
-      @coordinates << @last_point_track.latitude 
-      return @coordinates << @last_point_track.longitude
-    end
+  def get_last_point_track(walk_in_process, state)
+    @track_id = get_track_id(walk_in_process, state)
+    @last_point_track = Location.where(track_id: @track_id).last
+    @coordinates = []
+    @coordinates << @last_point_track.latitude 
+    return @coordinates << @last_point_track.longitude
+  end
 
-    def get_last_point_at_moment(last_point)
-      if last_point.is_a?(ActiveRecord::Base)
-        last_point_latitude = last_point.latitude
-        last_point_longitude = last_point.longitude
+  def get_last_point_at_moment(last_point)
+    if last_point.is_a?(ActiveRecord::Base)
+      last_point_latitude = last_point.latitude
+      last_point_longitude = last_point.longitude
+    else
+      last_point_latitude = last_point[0]
+      last_point_longitude = last_point[1]
+    end
+    return @last_point_at_moment = Location.where("latitude = #{last_point_latitude} AND longitude = #{last_point_longitude}").last
+  end
+
+  def get_locations_track(walk_in_process, state)
+    @track_id = get_track_id(walk_in_process, state)
+
+    return @locations_track = Location.where(track_id: @track_id)
+  end
+
+  def get_track_id(walk_in_process, state)
+    walk_id = state == 0 ? walk_in_process[0].id : walk_in_process.id
+    track_in_process = Track.where(walk_id: walk_id)
+    return @track_id = track_in_process.to_a[0].id
+  end
+
+  def get_locations_in_process(walk_in_process, actual_time, state)
+    @locations_track = get_locations_track(walk_in_process, state)
+    @points_locations = []
+
+    @locations_track.each do |location_track|
+      converted_timer = location_track.timer.strftime('%H:%M:%S')
+      if ((state == 0) && (converted_timer <= actual_time) && (location_track.timer.to_date <= Time.now.to_date))
+        @points_locations << [location_track.latitude, location_track.longitude] 
       else
-        last_point_latitude = last_point[0]
-        last_point_longitude = last_point[1]
+        break
       end
-      return @last_point_at_moment = Location.where("latitude = #{last_point_latitude} AND longitude = #{last_point_longitude}").last
     end
 
-    def get_locations_track(walk_in_process, state)
-      @track_id = get_track_id(walk_in_process, state)
+    return @points_locations
+  end
 
-      return @locations_track = Location.where(track_id: @track_id)
-    end
-
-    def get_track_id(walk_in_process, state)
-      walk_id = state == 0 ? walk_in_process[0].id : walk_in_process.id
-      track_in_process = Track.where(walk_id: walk_id)
-      return @track_id = track_in_process.to_a[0].id
-    end
-
-    def get_locations_in_process(walk_in_process, actual_time, state)
-      @locations_track = get_locations_track(walk_in_process, state)
-      @points_locations = []
-
-      @locations_track.each do |location_track|
-        converted_timer = location_track.timer.strftime('%H:%M:%S')
-        if ((state == 0) && (converted_timer <= actual_time) && (location_track.timer.to_date <= Time.now.to_date))
-          @points_locations << [location_track.latitude, location_track.longitude] 
-        else
-          break
-        end
+  def get_locations_finalized(finished_walk, actual_time, state)
+    @locations_track = get_locations_track(finished_walk, state)
+    @points_locations = []
+    
+    @locations_track.each do |location_track|
+      converted_timer = location_track.timer.strftime('%H:%M:%S')
+      if ((state == 1) && (converted_timer <= actual_time)) || (location_track.timer.to_date <= Time.now.to_date)
+        @points_locations << [location_track.latitude, location_track.longitude] 
+      else
+        break
       end
-
-      return @points_locations
     end
 
-    def get_locations_finalized(finished_walk, actual_time, state)
-      @locations_track = get_locations_track(finished_walk, state)
-      @points_locations = []
-      
-      @locations_track.each do |location_track|
-        converted_timer = location_track.timer.strftime('%H:%M:%S')
-        if ((state == 1) && (converted_timer <= actual_time)) || (location_track.timer.to_date <= Time.now.to_date)
-          @points_locations << [location_track.latitude, location_track.longitude] 
-        else
-          break
-        end
-      end
+    return @points_locations
+  end
 
-      return @points_locations
-    end
-
-    def pet_params
-      params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment, :race, :avatar)
-    end
-
+  def pet_params
+    params.require(:pet).permit(:name, :num_chip, :born_date, :user_id, :comment, :race, :avatar)
+  end
 end
