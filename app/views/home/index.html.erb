@@ -1,7 +1,9 @@
 <h1 style="text-align:center; margin-top: 1cm; font-weight: bold;"><%= t('home.welcome') %></h1>
-<% if current_user.admin? %>
+
+<% if current_user && current_user.admin? %>
 	<h2 style="text-align: center; margin-top: 1.5cm;"><%= User.count %> <%= link_to t('activerecord.models.user', :count => User.all), users_path %> <%= t('home.registered', :count => User.all) %></h2>
 <% else %>
   <!--<h1 style="text-align: center; font-weight: bold;"><%#= t('home.welcome') %></h1>-->
 	<h1 style="text-align: center; margin-top: 1.5cm;"><%= t('home.slogan') %></h1>
+	<div style="margin-top: 52px;"> <%= image_tag("huella_perro.gif") %> </div>
 <% end %>
